@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WT_Wiki_Bot_in_CSharp
 {
-    class Program
+    class TestTest
     {
         static void Main(string[] args)
         {
