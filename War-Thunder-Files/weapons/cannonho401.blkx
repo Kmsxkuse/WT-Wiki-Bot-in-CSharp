@@ -1,0 +1,96 @@
+{
+  "cannon": true,
+  "weaponType": -1,
+  "bUseHookAsRel": true,
+  "emitColor": [1.0,1.0,0.0],
+  "emitI": 10.0,
+  "emitR": 3.0,
+  "emitTime": 0.03,
+  "aimMinDist": 10.0,
+  "aimMaxDist": 1000.0,
+  "maxDeltaAngle": 0.32,
+  "shotFreq": 1.33,
+  "traceFreq": 1,
+  "bEnablePause": false,
+  "bullets": 30,
+  "bulletsCluster": 1,
+  "bullet": {
+    "mass": 1.5,
+    "caliber": 0.057,
+    "speed": 495.0,
+    "explosiveType": "tnt",
+    "explosiveMass": 0.25,
+    "maxDistance": 3500.0,
+    "shellExplScale": 0.7,
+    "bulletType": "he_frag_i_t",
+    "hitPowerMult": 4.0,
+    "onHitChanceMultFire": 3.0,
+    "nearHitPower": [1.0,50.0],
+    "midHitPower": [0.9,300.0],
+    "farHitPower": [0.1,700.0],
+    "endHitPower": [0.008,1500.0],
+    "relativeVelHitShift": [300.0,1000.0],
+    "relativeVelArmorShift": [200.0,1000.0],
+    "fuseDelayDist": 1.2,
+    "explodeTreshold": 0.1,
+    "explodeHitPower": 55.0,
+    "explodeArmorPower": 8.6,
+    "explodeRadius": [0.27,2.72],
+    "shutterDamage": true,
+    "shutterDamageRadius": 6.0,
+    "shutterAmount": 90,
+    "shutterArmorPower": 6.0,
+    "shutterHit": 6.0,
+    "groundCollisionEffect": "art_ground_splash",
+    "ricochetEffect": "cannon_ricochet",
+    "groundFxScale": [1.4,1.5],
+    "waterCollisionEffect": "big_water_splash",
+    "defFxScale": [1.7,2.0],
+    "waterFxScale": [1.7,2.0],
+    "armorpower": {
+      "ArmorPower0m": [4.0,10.0],
+      "ArmorPower100m": [4.0,100.0],
+      "ArmorPower500m": [4.0,500.0],
+      "ArmorPower1000m": [4.0,1000.0],
+      "ArmorPower1450m": [2.0,1450.0],
+      "ArmorPower1500m": [0.0,1500.0]
+    },
+    "visual": {
+      "range_percent_of_ammo": [100.0,0.0],
+      "traceFreq": 1,
+      "tracer": "50mmLightRed",
+      "trail": "black"
+    },
+    "collisions": {
+      "steel": {
+        "fx": "cannon_hit_ship_cumulative",
+        "fxScale": [1.7,2.0]
+      },
+      "armor": {
+        "fx": "cannon_hit_ship_cumulative",
+        "fxScale": [1.7,2.0]
+      },
+      "wood": {
+        "fx": "cannon_hit_ship_cumulative",
+        "fxScale": [1.7,2.0]
+      }
+    }
+  },
+  "gunSound": {
+    "path": "sounds/guns",
+    "outside": "ns45_gun_outside",
+    "cockpit": "ns45_gun_inside",
+    "ai": "ns45_gun_ai"
+  },
+  "ho401_new_gun": {
+    "maxDeltaAngle": 0.64,
+    "overheat": [
+      {
+        "overheat": [4.3,0.0]
+      },
+      {
+        "overheat": [7.0,0.05]
+      }
+    ]
+  }
+}

@@ -1,0 +1,819 @@
+[
+  {
+    "cannon": true
+  },
+  {
+    "weaponType": -1
+  },
+  {
+    "bUseHookAsRel": true
+  },
+  {
+    "emitColor": [1.0,1.0,0.0]
+  },
+  {
+    "emitI": 10.0
+  },
+  {
+    "emitR": 3.0
+  },
+  {
+    "emitTime": 0.03
+  },
+  {
+    "aimMinDist": 10.0
+  },
+  {
+    "aimMaxDist": 1000.0
+  },
+  {
+    "maxDeltaAngle": 0.43
+  },
+  {
+    "shotFreq": 11.0
+  },
+  {
+    "traceFreq": 1
+  },
+  {
+    "bEnablePause": false
+  },
+  {
+    "bullets": 60
+  },
+  {
+    "bulletsCluster": 1
+  },
+  {
+    "dragCx": 0.009
+  },
+  {
+    "mass": 58.0
+  },
+  {
+    "bullet": {
+      "mass": 0.33,
+      "caliber": 0.03,
+      "explosiveType": "hta_petn",
+      "explosiveMass": 0.075,
+      "speed": 500.0,
+      "maxDistance": 1600.0,
+      "bulletType": "he_i_t_mine",
+      "hitPowerMult": 2.0,
+      "onHitChanceMultFire": 4.0,
+      "effectiveDistance": 300.0,
+      "relativeVelHitShift": [300.0,1000.0],
+      "relativeVelArmorShift": [200.0,1000.0],
+      "explodeTreshold": 0.001,
+      "fuseDelayDist": 0.1,
+      "groundCollisionEffect": "37_50_he_hit_ground",
+      "groundFxScale": [0.5,0.7],
+      "ricochetEffect": "cannon_ricochet",
+      "waterCollisionEffect": "big_water_splash",
+      "defFxScale": [1.0,1.5],
+      "waterFxScale": [1.0,1.5],
+      "hitpower": {
+        "HitPower10m": [1.0,50.0],
+        "HitPower1000m": [0.9,300.0],
+        "HitPower1500m": [0.1,700.0],
+        "HitPower2000m": [0.008,1500.0]
+      },
+      "armorpower": {
+        "ArmorPower0m": [4.0,10.0],
+        "ArmorPower100m": [3.0,100.0],
+        "ArmorPower500m": [2.0,500.0],
+        "ArmorPower1000m": [1.0,1000.0]
+      },
+      "visual": {
+        "range_percent_of_ammo": [100.0,0.0],
+        "traceFreq": 1,
+        "tracer": "20mmWhite",
+        "trail": "black"
+      },
+      "collisions": {
+        "steel": {
+          "fx": "cannon_hit_ship_cumulative",
+          "fxScale": [0.7,1.0]
+        },
+        "armor": {
+          "fx": "cannon_hit_ship_cumulative",
+          "fxScale": [0.7,1.0]
+        },
+        "wood": {
+          "fx": "cannon_hit_ship_cumulative",
+          "fxScale": [0.7,1.0]
+        }
+      }
+    }
+  },
+  {
+    "bullet": {
+      "mass": 0.33,
+      "caliber": 0.03,
+      "speed": 500.0,
+      "maxDistance": 1600.0,
+      "groundCollisionEffect": "cannon_air_hit",
+      "groundFxScale": [1.1,1.2],
+      "bulletType": "i",
+      "hitPowerMult": 15.0,
+      "onHitChanceMultFire": 3.0,
+      "onHitChanceMultExplFuel": 4500.0,
+      "effectiveDistance": 300.0,
+      "relativeVelHitShift": [300.0,1000.0],
+      "relativeVelArmorShift": [200.0,1000.0],
+      "fuseDelayDist": 1.0,
+      "explodeTreshold": 0.4,
+      "explodeHitPower": 18.0,
+      "explodeArmorPower": 6.0,
+      "explodeRadius": [0.037,0.26],
+      "shutterDamage": true,
+      "shutterDamageRadius": 0.4,
+      "shutterAmount": 13,
+      "shutterArmorPower": 6.0,
+      "shutterHit": 3.0,
+      "hitpower": {
+        "HitPower10m": [1.0,50.0],
+        "HitPower1000m": [0.9,300.0],
+        "HitPower1500m": [0.1,700.0],
+        "HitPower2000m": [0.008,1500.0]
+      },
+      "armorpower": {
+        "ArmorPower0m": [13.0,10.0],
+        "ArmorPower100m": [12.0,100.0],
+        "ArmorPower500m": [7.0,500.0],
+        "ArmorPower1000m": [1.0,1000.0]
+      },
+      "visual": {
+        "range_percent_of_ammo": [100.0,0.0],
+        "traceFreq": 1,
+        "tracer": "noColor"
+      }
+    }
+  },
+  {
+    "mk_108_fighter_universal": [
+      {
+        "bullet": {
+          "mass": 0.33,
+          "caliber": 0.03,
+          "explosiveType": "hta_petn",
+          "explosiveMass": 0.075,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_t_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmWhite",
+            "trail": "black"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "caliber": 0.03,
+          "explosiveType": "hta_petn",
+          "explosiveMass": 0.075,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_t_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmWhite",
+            "trail": "black"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "caliber": 0.03,
+          "explosiveType": "hta_petn",
+          "explosiveMass": 0.075,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_t_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmWhite",
+            "trail": "black"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "groundCollisionEffect": "cannon_air_hit",
+          "groundFxScale": [1.1,1.2],
+          "bulletType": "i",
+          "hitPowerMult": 15.0,
+          "onHitChanceMultFire": 3.0,
+          "onHitChanceMultExplFuel": 4500.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "fuseDelayDist": 1.0,
+          "explodeTreshold": 0.4,
+          "explodeHitPower": 18.0,
+          "explodeArmorPower": 6.0,
+          "explodeRadius": [0.037,0.26],
+          "shutterDamage": true,
+          "shutterDamageRadius": 0.4,
+          "shutterAmount": 13,
+          "shutterArmorPower": 6.0,
+          "shutterHit": 3.0,
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [13.0,10.0],
+            "ArmorPower100m": [12.0,100.0],
+            "ArmorPower500m": [7.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "noColor"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "mk_108_fighter_night": [
+      {
+        "bullet": {
+          "mass": 0.33,
+          "explosiveType": "hta_petn",
+          "explosiveMass": 0.075,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_t_n_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmPaleWhite",
+            "trail": "black"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "explosiveType": "hta_petn",
+          "explosiveMass": 0.075,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_t_n_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmPaleWhite",
+            "trail": "black"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "explosiveType": "hta_petn",
+          "explosiveMass": 0.075,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_t_n_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmPaleWhite",
+            "trail": "black"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "groundCollisionEffect": "cannon_air_hit",
+          "groundFxScale": [1.1,1.2],
+          "bulletType": "i",
+          "hitPowerMult": 15.0,
+          "onHitChanceMultFire": 3.0,
+          "onHitChanceMultExplFuel": 4500.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "fuseDelayDist": 1.0,
+          "explodeTreshold": 0.4,
+          "explodeHitPower": 18.0,
+          "explodeArmorPower": 6.0,
+          "explodeRadius": [0.037,0.26],
+          "shutterDamage": true,
+          "shutterDamageRadius": 0.4,
+          "shutterAmount": 13,
+          "shutterArmorPower": 6.0,
+          "shutterHit": 3.0,
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [13.0,10.0],
+            "ArmorPower100m": [12.0,100.0],
+            "ArmorPower500m": [7.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "noColor"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "mk_108_fighter_stealth": [
+      {
+        "bullet": {
+          "mass": 0.33,
+          "explosiveType": "hta",
+          "explosiveMass": 0.085,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "noColor"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "explosiveType": "hta",
+          "explosiveMass": 0.085,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "noColor"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "explosiveType": "hta",
+          "explosiveMass": 0.085,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "bulletType": "he_i_mine",
+          "hitPowerMult": 2.0,
+          "onHitChanceMultFire": 4.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.001,
+          "fuseDelayDist": 0.1,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.5,0.7],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "defFxScale": [1.0,1.5],
+          "waterFxScale": [1.0,1.5],
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [4.0,10.0],
+            "ArmorPower100m": [3.0,100.0],
+            "ArmorPower500m": [2.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "noColor"
+          },
+          "collisions": {
+            "steel": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            },
+            "wood": {
+              "fx": "cannon_hit_ship_cumulative",
+              "fxScale": [0.7,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "mass": 0.33,
+          "caliber": 0.03,
+          "speed": 500.0,
+          "maxDistance": 1600.0,
+          "groundCollisionEffect": "cannon_air_hit",
+          "groundFxScale": [1.1,1.2],
+          "bulletType": "i",
+          "hitPowerMult": 15.0,
+          "onHitChanceMultFire": 3.0,
+          "onHitChanceMultExplFuel": 4500.0,
+          "effectiveDistance": 300.0,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "fuseDelayDist": 1.0,
+          "explodeTreshold": 0.4,
+          "explodeHitPower": 18.0,
+          "explodeArmorPower": 6.0,
+          "explodeRadius": [0.037,0.26],
+          "shutterDamage": true,
+          "shutterDamageRadius": 0.4,
+          "shutterAmount": 13,
+          "shutterArmorPower": 6.0,
+          "shutterHit": 3.0,
+          "hitpower": {
+            "HitPower10m": [1.0,50.0],
+            "HitPower1000m": [0.9,300.0],
+            "HitPower1500m": [0.1,700.0],
+            "HitPower2000m": [0.008,1500.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [13.0,10.0],
+            "ArmorPower100m": [12.0,100.0],
+            "ArmorPower500m": [7.0,500.0],
+            "ArmorPower1000m": [1.0,1000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "noColor"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "gunSound": {
+      "path": "sounds/guns",
+      "outside": "mk_108_gun_outside",
+      "cockpit": "mk_108_gun_inside",
+      "ai": "mk_108_gun_ai"
+    }
+  },
+  {
+    "mk108_new_gun": {
+      "maxDeltaAngle": 0.7,
+      "overheat": [
+        {
+          "overheat": [4.3,0.0]
+        },
+        {
+          "overheat": [7.0,0.05]
+        }
+      ]
+    }
+  }
+]

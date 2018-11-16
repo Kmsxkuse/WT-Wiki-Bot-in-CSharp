@@ -1,0 +1,810 @@
+[
+  {
+    "cannon": false
+  },
+  {
+    "weaponType": 3
+  },
+  {
+    "bUseHookAsRel": true
+  },
+  {
+    "emitColor": [1.0,1.0,0.0]
+  },
+  {
+    "emitI": 10.0
+  },
+  {
+    "emitR": 3.0
+  },
+  {
+    "emitTime": 0.03
+  },
+  {
+    "aimMinDist": 10.0
+  },
+  {
+    "aimMaxDist": 1000.0
+  },
+  {
+    "maxDeltaAngle": 0.3
+  },
+  {
+    "shotFreq": 100.0
+  },
+  {
+    "traceFreq": 4
+  },
+  {
+    "bEnablePause": false
+  },
+  {
+    "bullets": 250
+  },
+  {
+    "bulletsCluster": 1
+  },
+  {
+    "bullet": {
+      "bulletCount": 10,
+      "mass": 0.147,
+      "caliber": 0.02,
+      "speed": 1030.0,
+      "maxDistance": 4000.0,
+      "bulletType": "ap_i_t",
+      "bulletName": "20mm_m52a1",
+      "onHitChanceMultFire": 3.5,
+      "relativeVelHitShift": [300.0,1000.0],
+      "relativeVelArmorShift": [200.0,1000.0],
+      "groundCollisionEffect": "37_50_ap_hit_ground",
+      "groundFxScale": [0.3,0.4],
+      "ricochetEffect": "cannon_ricochet",
+      "waterCollisionEffect": "water_splash",
+      "waterFxScale": [1.2,1.4],
+      "hitpower": {
+        "HitPower0m": [0.85,500.0],
+        "HitPower10000m": [0.8,10000.0]
+      },
+      "armorpower": {
+        "ArmorPower0m": [40.0,10.0],
+        "ArmorPower100m": [39.0,100.0],
+        "ArmorPower250m": [35.0,250.0],
+        "ArmorPower500m": [29.0,500.0],
+        "ArmorPower750m": [24.0,750.0],
+        "ArmorPower1000m": [20.0,1000.0],
+        "ArmorPower1250m": [16.0,1250.0],
+        "ArmorPower1500m": [13.0,1500.0],
+        "ArmorPower2000m": [9.0,2000.0],
+        "ArmorPower2500m": [6.0,2500.0],
+        "ArmorPower3000m": [4.0,3000.0],
+        "ArmorPower4000m": [2.0,4000.0]
+      },
+      "visual": {
+        "range_percent_of_ammo": [100.0,0.0],
+        "traceFreq": 1,
+        "tracer": "20mmRed",
+        "trail": "noTrail"
+      },
+      "collisions": {
+        "buildings": {
+          "fx": "20_37_he_hit_stone",
+          "fxScale": [0.2,0.4]
+        },
+        "steel": {
+          "fx": "cannon_hit_apds",
+          "fxScale": [0.8,1.0]
+        },
+        "armor": {
+          "fx": "cannon_hit_apds",
+          "fxScale": [0.8,1.0]
+        },
+        "wood": {
+          "fx": "20_ap_wood_splash",
+          "fxScale": [0.6,0.8]
+        }
+      }
+    }
+  },
+  {
+    "bullet": {
+      "bulletCount": 10,
+      "mass": 0.102,
+      "explosiveType": "tnt",
+      "explosiveMass": 0.01,
+      "caliber": 0.02,
+      "bulletType": "he_frag_i",
+      "bulletName": "20mm_m56a3",
+      "speed": 1030.0,
+      "maxDistance": 4000.0,
+      "hitPowerMult": 1.5,
+      "nearHitPower": [1.0,50.0],
+      "midHitPower": [0.9,300.0],
+      "farHitPower": [0.1,700.0],
+      "endHitPower": [0.008,1500.0],
+      "relativeVelHitShift": [300.0,1000.0],
+      "relativeVelArmorShift": [200.0,1000.0],
+      "explodeTreshold": 0.1,
+      "explodeHitPower": 15.0,
+      "explodeArmorPower": 3.0,
+      "explodeRadius": [0.045,0.45],
+      "fuseDelayDist": 0.3,
+      "shutterDamage": true,
+      "shutterDamageRadius": 2.5,
+      "shutterAmount": 14,
+      "shutterArmorPower": 4.0,
+      "shutterHit": 4.5,
+      "groundCollisionEffect": "37_50_he_hit_ground",
+      "groundFxScale": [0.3,0.5],
+      "ricochetEffect": "cannon_ricochet",
+      "waterCollisionEffect": "big_water_splash",
+      "waterFxScale": [0.6,0.8],
+      "armorpower": {
+        "ArmorPower0m": [2.0,10.0],
+        "ArmorPower100m": [2.0,100.0],
+        "ArmorPower500m": [1.5,500.0],
+        "ArmorPower1000m": [1.0,1000.0],
+        "ArmorPower1450m": [0.5,1450.0],
+        "ArmorPower1500m": [0.0,1500.0]
+      },
+      "visual": {
+        "range_percent_of_ammo": [100.0,0.0],
+        "traceFreq": 1,
+        "tracer": "noColor"
+      },
+      "collisions": {
+        "buildings": {
+          "fx": "20_37_he_hit_stone",
+          "fxScale": [0.4,0.5]
+        },
+        "steel": {
+          "fx": "cannon_hit_armor_cumulative",
+          "fxScale": [0.8,1.0]
+        },
+        "armor": {
+          "fx": "cannon_hit_armor_cumulative",
+          "fxScale": [0.8,1.0]
+        },
+        "wood": {
+          "fx": "20_ap_wood_splash",
+          "fxScale": [0.8,1.0]
+        }
+      }
+    }
+  },
+  {
+    "bullet": {
+      "bulletCount": 10,
+      "mass": 0.147,
+      "caliber": 0.02,
+      "speed": 1030.0,
+      "maxDistance": 4000.0,
+      "bulletType": "ap_i_t",
+      "bulletName": "20mm_m52a1",
+      "onHitChanceMultFire": 3.5,
+      "relativeVelHitShift": [300.0,1000.0],
+      "relativeVelArmorShift": [200.0,1000.0],
+      "groundCollisionEffect": "37_50_ap_hit_ground",
+      "groundFxScale": [0.3,0.4],
+      "ricochetEffect": "cannon_ricochet",
+      "waterCollisionEffect": "water_splash",
+      "waterFxScale": [1.2,1.4],
+      "hitpower": {
+        "HitPower0m": [0.85,500.0],
+        "HitPower10000m": [0.8,10000.0]
+      },
+      "armorpower": {
+        "ArmorPower0m": [40.0,10.0],
+        "ArmorPower100m": [39.0,100.0],
+        "ArmorPower250m": [35.0,250.0],
+        "ArmorPower500m": [29.0,500.0],
+        "ArmorPower750m": [24.0,750.0],
+        "ArmorPower1000m": [20.0,1000.0],
+        "ArmorPower1250m": [16.0,1250.0],
+        "ArmorPower1500m": [13.0,1500.0],
+        "ArmorPower2000m": [9.0,2000.0],
+        "ArmorPower2500m": [6.0,2500.0],
+        "ArmorPower3000m": [4.0,3000.0],
+        "ArmorPower4000m": [2.0,4000.0]
+      },
+      "visual": {
+        "range_percent_of_ammo": [100.0,0.0],
+        "traceFreq": 1,
+        "tracer": "20mmRed",
+        "trail": "noTrail"
+      },
+      "collisions": {
+        "buildings": {
+          "fx": "20_37_he_hit_stone",
+          "fxScale": [0.2,0.4]
+        },
+        "steel": {
+          "fx": "cannon_hit_apds",
+          "fxScale": [0.8,1.0]
+        },
+        "armor": {
+          "fx": "cannon_hit_apds",
+          "fxScale": [0.8,1.0]
+        },
+        "wood": {
+          "fx": "20_ap_wood_splash",
+          "fxScale": [0.6,0.8]
+        }
+      }
+    }
+  },
+  {
+    "M195_air_targets": [
+      {
+        "bullet": {
+          "bulletCount": 10,
+          "mass": 0.102,
+          "explosiveType": "tnt",
+          "explosiveMass": 0.009,
+          "caliber": 0.02,
+          "bulletType": "he_frag_i_t",
+          "bulletName": "20mm_m242a1",
+          "speed": 1030.0,
+          "maxDistance": 4000.0,
+          "hitPowerMult": 1.5,
+          "nearHitPower": [1.0,50.0],
+          "midHitPower": [0.9,300.0],
+          "farHitPower": [0.1,700.0],
+          "endHitPower": [0.008,1500.0],
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.1,
+          "explodeHitPower": 15.0,
+          "explodeArmorPower": 3.0,
+          "explodeRadius": [0.045,0.45],
+          "fuseDelayDist": 0.3,
+          "shutterDamage": true,
+          "shutterDamageRadius": 2.5,
+          "shutterAmount": 14,
+          "shutterArmorPower": 4.0,
+          "shutterHit": 4.5,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.3,0.5],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "waterFxScale": [0.6,0.8],
+          "armorpower": {
+            "ArmorPower0m": [2.0,10.0],
+            "ArmorPower100m": [2.0,100.0],
+            "ArmorPower500m": [1.5,500.0],
+            "ArmorPower1000m": [1.0,1000.0],
+            "ArmorPower1450m": [0.5,1450.0],
+            "ArmorPower1500m": [0.0,1500.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmRed",
+            "trail": "noTrail"
+          },
+          "collisions": {
+            "buildings": {
+              "fx": "20_37_he_hit_stone",
+              "fxScale": [0.4,0.5]
+            },
+            "steel": {
+              "fx": "cannon_hit_armor_cumulative",
+              "fxScale": [0.8,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_armor_cumulative",
+              "fxScale": [0.8,1.0]
+            },
+            "wood": {
+              "fx": "20_ap_wood_splash",
+              "fxScale": [0.8,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "bulletCount": 10,
+          "mass": 0.102,
+          "explosiveType": "tnt",
+          "explosiveMass": 0.009,
+          "caliber": 0.02,
+          "bulletType": "he_frag_i_t",
+          "bulletName": "20mm_m242a1",
+          "speed": 1030.0,
+          "maxDistance": 4000.0,
+          "hitPowerMult": 1.5,
+          "nearHitPower": [1.0,50.0],
+          "midHitPower": [0.9,300.0],
+          "farHitPower": [0.1,700.0],
+          "endHitPower": [0.008,1500.0],
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.1,
+          "explodeHitPower": 15.0,
+          "explodeArmorPower": 3.0,
+          "explodeRadius": [0.045,0.45],
+          "fuseDelayDist": 0.3,
+          "shutterDamage": true,
+          "shutterDamageRadius": 2.5,
+          "shutterAmount": 14,
+          "shutterArmorPower": 4.0,
+          "shutterHit": 4.5,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.3,0.5],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "waterFxScale": [0.6,0.8],
+          "armorpower": {
+            "ArmorPower0m": [2.0,10.0],
+            "ArmorPower100m": [2.0,100.0],
+            "ArmorPower500m": [1.5,500.0],
+            "ArmorPower1000m": [1.0,1000.0],
+            "ArmorPower1450m": [0.5,1450.0],
+            "ArmorPower1500m": [0.0,1500.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmRed",
+            "trail": "noTrail"
+          },
+          "collisions": {
+            "buildings": {
+              "fx": "20_37_he_hit_stone",
+              "fxScale": [0.4,0.5]
+            },
+            "steel": {
+              "fx": "cannon_hit_armor_cumulative",
+              "fxScale": [0.8,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_armor_cumulative",
+              "fxScale": [0.8,1.0]
+            },
+            "wood": {
+              "fx": "20_ap_wood_splash",
+              "fxScale": [0.8,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "bulletCount": 10,
+          "mass": 0.102,
+          "explosiveType": "tnt",
+          "explosiveMass": 0.009,
+          "caliber": 0.02,
+          "bulletType": "he_frag_i_t",
+          "bulletName": "20mm_m242a1",
+          "speed": 1030.0,
+          "maxDistance": 4000.0,
+          "hitPowerMult": 1.5,
+          "nearHitPower": [1.0,50.0],
+          "midHitPower": [0.9,300.0],
+          "farHitPower": [0.1,700.0],
+          "endHitPower": [0.008,1500.0],
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.1,
+          "explodeHitPower": 15.0,
+          "explodeArmorPower": 3.0,
+          "explodeRadius": [0.045,0.45],
+          "fuseDelayDist": 0.3,
+          "shutterDamage": true,
+          "shutterDamageRadius": 2.5,
+          "shutterAmount": 14,
+          "shutterArmorPower": 4.0,
+          "shutterHit": 4.5,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.3,0.5],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "waterFxScale": [0.6,0.8],
+          "armorpower": {
+            "ArmorPower0m": [2.0,10.0],
+            "ArmorPower100m": [2.0,100.0],
+            "ArmorPower500m": [1.5,500.0],
+            "ArmorPower1000m": [1.0,1000.0],
+            "ArmorPower1450m": [0.5,1450.0],
+            "ArmorPower1500m": [0.0,1500.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmRed",
+            "trail": "noTrail"
+          },
+          "collisions": {
+            "buildings": {
+              "fx": "20_37_he_hit_stone",
+              "fxScale": [0.4,0.5]
+            },
+            "steel": {
+              "fx": "cannon_hit_armor_cumulative",
+              "fxScale": [0.8,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_armor_cumulative",
+              "fxScale": [0.8,1.0]
+            },
+            "wood": {
+              "fx": "20_ap_wood_splash",
+              "fxScale": [0.8,1.0]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "bulletCount": 10,
+          "mass": 0.147,
+          "caliber": 0.02,
+          "speed": 1030.0,
+          "maxDistance": 4000.0,
+          "bulletType": "ap_i_t",
+          "bulletName": "20mm_m52a1",
+          "onHitChanceMultFire": 3.5,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "groundCollisionEffect": "37_50_ap_hit_ground",
+          "groundFxScale": [0.3,0.4],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "water_splash",
+          "waterFxScale": [1.2,1.4],
+          "hitpower": {
+            "HitPower0m": [0.85,500.0],
+            "HitPower10000m": [0.8,10000.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [40.0,10.0],
+            "ArmorPower100m": [39.0,100.0],
+            "ArmorPower250m": [35.0,250.0],
+            "ArmorPower500m": [29.0,500.0],
+            "ArmorPower750m": [24.0,750.0],
+            "ArmorPower1000m": [20.0,1000.0],
+            "ArmorPower1250m": [16.0,1250.0],
+            "ArmorPower1500m": [13.0,1500.0],
+            "ArmorPower2000m": [9.0,2000.0],
+            "ArmorPower2500m": [6.0,2500.0],
+            "ArmorPower3000m": [4.0,3000.0],
+            "ArmorPower4000m": [2.0,4000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmRed",
+            "trail": "noTrail"
+          },
+          "collisions": {
+            "buildings": {
+              "fx": "20_37_he_hit_stone",
+              "fxScale": [0.2,0.4]
+            },
+            "steel": {
+              "fx": "cannon_hit_apds",
+              "fxScale": [0.8,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_apds",
+              "fxScale": [0.8,1.0]
+            },
+            "wood": {
+              "fx": "20_ap_wood_splash",
+              "fxScale": [0.6,0.8]
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "M195_armor_targets": [
+      {
+        "bullet": {
+          "bulletCount": 10,
+          "mass": 0.147,
+          "caliber": 0.02,
+          "speed": 1030.0,
+          "maxDistance": 4000.0,
+          "bulletType": "ap_i_t",
+          "bulletName": "20mm_m52a1",
+          "onHitChanceMultFire": 3.5,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "groundCollisionEffect": "37_50_ap_hit_ground",
+          "groundFxScale": [0.3,0.4],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "water_splash",
+          "waterFxScale": [1.2,1.4],
+          "hitpower": {
+            "HitPower0m": [0.85,500.0],
+            "HitPower10000m": [0.8,10000.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [40.0,10.0],
+            "ArmorPower100m": [39.0,100.0],
+            "ArmorPower250m": [35.0,250.0],
+            "ArmorPower500m": [29.0,500.0],
+            "ArmorPower750m": [24.0,750.0],
+            "ArmorPower1000m": [20.0,1000.0],
+            "ArmorPower1250m": [16.0,1250.0],
+            "ArmorPower1500m": [13.0,1500.0],
+            "ArmorPower2000m": [9.0,2000.0],
+            "ArmorPower2500m": [6.0,2500.0],
+            "ArmorPower3000m": [4.0,3000.0],
+            "ArmorPower4000m": [2.0,4000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmRed",
+            "trail": "noTrail"
+          },
+          "collisions": {
+            "buildings": {
+              "fx": "20_37_he_hit_stone",
+              "fxScale": [0.2,0.4]
+            },
+            "steel": {
+              "fx": "cannon_hit_apds",
+              "fxScale": [0.8,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_apds",
+              "fxScale": [0.8,1.0]
+            },
+            "wood": {
+              "fx": "20_ap_wood_splash",
+              "fxScale": [0.6,0.8]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "bulletCount": 10,
+          "mass": 0.147,
+          "caliber": 0.02,
+          "speed": 1030.0,
+          "maxDistance": 4000.0,
+          "bulletType": "ap_i_t",
+          "bulletName": "20mm_m52a1",
+          "onHitChanceMultFire": 3.5,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "groundCollisionEffect": "37_50_ap_hit_ground",
+          "groundFxScale": [0.3,0.4],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "water_splash",
+          "waterFxScale": [1.2,1.4],
+          "hitpower": {
+            "HitPower0m": [0.85,500.0],
+            "HitPower10000m": [0.8,10000.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [40.0,10.0],
+            "ArmorPower100m": [39.0,100.0],
+            "ArmorPower250m": [35.0,250.0],
+            "ArmorPower500m": [29.0,500.0],
+            "ArmorPower750m": [24.0,750.0],
+            "ArmorPower1000m": [20.0,1000.0],
+            "ArmorPower1250m": [16.0,1250.0],
+            "ArmorPower1500m": [13.0,1500.0],
+            "ArmorPower2000m": [9.0,2000.0],
+            "ArmorPower2500m": [6.0,2500.0],
+            "ArmorPower3000m": [4.0,3000.0],
+            "ArmorPower4000m": [2.0,4000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmRed",
+            "trail": "noTrail"
+          },
+          "collisions": {
+            "buildings": {
+              "fx": "20_37_he_hit_stone",
+              "fxScale": [0.2,0.4]
+            },
+            "steel": {
+              "fx": "cannon_hit_apds",
+              "fxScale": [0.8,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_apds",
+              "fxScale": [0.8,1.0]
+            },
+            "wood": {
+              "fx": "20_ap_wood_splash",
+              "fxScale": [0.6,0.8]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "bulletCount": 10,
+          "mass": 0.147,
+          "caliber": 0.02,
+          "speed": 1030.0,
+          "maxDistance": 4000.0,
+          "bulletType": "ap_i_t",
+          "bulletName": "20mm_m52a1",
+          "onHitChanceMultFire": 3.5,
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "groundCollisionEffect": "37_50_ap_hit_ground",
+          "groundFxScale": [0.3,0.4],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "water_splash",
+          "waterFxScale": [1.2,1.4],
+          "hitpower": {
+            "HitPower0m": [0.85,500.0],
+            "HitPower10000m": [0.8,10000.0]
+          },
+          "armorpower": {
+            "ArmorPower0m": [40.0,10.0],
+            "ArmorPower100m": [39.0,100.0],
+            "ArmorPower250m": [35.0,250.0],
+            "ArmorPower500m": [29.0,500.0],
+            "ArmorPower750m": [24.0,750.0],
+            "ArmorPower1000m": [20.0,1000.0],
+            "ArmorPower1250m": [16.0,1250.0],
+            "ArmorPower1500m": [13.0,1500.0],
+            "ArmorPower2000m": [9.0,2000.0],
+            "ArmorPower2500m": [6.0,2500.0],
+            "ArmorPower3000m": [4.0,3000.0],
+            "ArmorPower4000m": [2.0,4000.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmRed",
+            "trail": "noTrail"
+          },
+          "collisions": {
+            "buildings": {
+              "fx": "20_37_he_hit_stone",
+              "fxScale": [0.2,0.4]
+            },
+            "steel": {
+              "fx": "cannon_hit_apds",
+              "fxScale": [0.8,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_apds",
+              "fxScale": [0.8,1.0]
+            },
+            "wood": {
+              "fx": "20_ap_wood_splash",
+              "fxScale": [0.6,0.8]
+            }
+          }
+        }
+      },
+      {
+        "bullet": {
+          "bulletCount": 10,
+          "mass": 0.102,
+          "explosiveType": "tnt",
+          "explosiveMass": 0.009,
+          "caliber": 0.02,
+          "bulletType": "he_frag_i_t",
+          "bulletName": "20mm_m242a1",
+          "speed": 1030.0,
+          "maxDistance": 4000.0,
+          "hitPowerMult": 1.5,
+          "nearHitPower": [1.0,50.0],
+          "midHitPower": [0.9,300.0],
+          "farHitPower": [0.1,700.0],
+          "endHitPower": [0.008,1500.0],
+          "relativeVelHitShift": [300.0,1000.0],
+          "relativeVelArmorShift": [200.0,1000.0],
+          "explodeTreshold": 0.1,
+          "explodeHitPower": 15.0,
+          "explodeArmorPower": 3.0,
+          "explodeRadius": [0.045,0.45],
+          "fuseDelayDist": 0.3,
+          "shutterDamage": true,
+          "shutterDamageRadius": 2.5,
+          "shutterAmount": 14,
+          "shutterArmorPower": 4.0,
+          "shutterHit": 4.5,
+          "groundCollisionEffect": "37_50_he_hit_ground",
+          "groundFxScale": [0.3,0.5],
+          "ricochetEffect": "cannon_ricochet",
+          "waterCollisionEffect": "big_water_splash",
+          "waterFxScale": [0.6,0.8],
+          "armorpower": {
+            "ArmorPower0m": [2.0,10.0],
+            "ArmorPower100m": [2.0,100.0],
+            "ArmorPower500m": [1.5,500.0],
+            "ArmorPower1000m": [1.0,1000.0],
+            "ArmorPower1450m": [0.5,1450.0],
+            "ArmorPower1500m": [0.0,1500.0]
+          },
+          "visual": {
+            "range_percent_of_ammo": [100.0,0.0],
+            "traceFreq": 1,
+            "tracer": "20mmRed",
+            "trail": "noTrail"
+          },
+          "collisions": {
+            "buildings": {
+              "fx": "20_37_he_hit_stone",
+              "fxScale": [0.4,0.5]
+            },
+            "steel": {
+              "fx": "cannon_hit_armor_cumulative",
+              "fxScale": [0.8,1.0]
+            },
+            "armor": {
+              "fx": "cannon_hit_armor_cumulative",
+              "fxScale": [0.8,1.0]
+            },
+            "wood": {
+              "fx": "20_ap_wood_splash",
+              "fxScale": [0.8,1.0]
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "gunSound": {
+      "path": "sounds/guns",
+      "outside": "m197_gun_outside",
+      "cockpit": "m197_gun_inside",
+      "ai": "m197_gun_ai"
+    }
+  },
+  {
+    "overheat": [
+      {
+        "overheat": [11.3,0.0]
+      },
+      {
+        "overheat": [12.9,0.02]
+      },
+      {
+        "overheat": [13.0,0.12]
+      }
+    ]
+  },
+  {
+    "deviation": [
+      {
+        "deviation": [0.5,1.5]
+      },
+      {
+        "deviation": [2.5,2.0]
+      }
+    ]
+  },
+  {
+    "M195_new_gun": {
+      "maxDeltaAngle": 0.5,
+      "deviation": [
+        {
+          "deviation": [0.5,1.7]
+        },
+        {
+          "deviation": [2.5,2.0]
+        }
+      ],
+      "overheat": [
+        {
+          "overheat": [10.0,0.0]
+        },
+        {
+          "overheat": [11.4,0.04]
+        },
+        {
+          "overheat": [12.3,0.2]
+        }
+      ]
+    }
+  }
+]

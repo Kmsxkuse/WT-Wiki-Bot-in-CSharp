@@ -1,0 +1,116 @@
+{
+  "cannon": true,
+  "weaponType": -1,
+  "bUseHookAsRel": true,
+  "emitColor": [1.0,1.0,0.0],
+  "emitI": 10.0,
+  "emitR": 3.0,
+  "emitTime": 0.03,
+  "aimMinDist": 10.0,
+  "aimMaxDist": 1000.0,
+  "maxDeltaAngle": 0.32,
+  "shotFreq": 4.3,
+  "traceFreq": 1,
+  "bEnablePause": false,
+  "bullets": 30,
+  "bulletsCluster": 1,
+  "bullet": {
+    "mass": 1.065,
+    "caliber": 0.045,
+    "speed": 780.0,
+    "explosiveType": "a_ix_2",
+    "explosiveMass": 0.118,
+    "maxDistance": 3500.0,
+    "shellExplScale": 0.7,
+    "bulletType": "he_frag_i_t",
+    "hitPowerMult": 3.0,
+    "onHitChanceMultFire": 3.0,
+    "nearHitPower": [1.0,50.0],
+    "midHitPower": [0.9,300.0],
+    "farHitPower": [0.1,700.0],
+    "endHitPower": [0.008,1500.0],
+    "relativeVelHitShift": [300.0,1000.0],
+    "nearArmorPower": [4.0,150.0],
+    "midArmorPower": [4.0,600.0],
+    "farArmorPower": [4.0,1000.0],
+    "relativeVelArmorShift": [200.0,1000.0],
+    "fuseDelayDist": 1.2,
+    "explodeTreshold": 0.1,
+    "explodeHitPower": 45.0,
+    "explodeArmorPower": 8.6,
+    "explodeRadius": [0.22,1.24],
+    "shutterDamage": true,
+    "shutterDamageRadius": 5.0,
+    "shutterAmount": 80,
+    "shutterArmorPower": 6.0,
+    "shutterHit": 6.0,
+    "groundCollisionEffect": "37_50_he_hit_ground",
+    "groundFxScale": [0.9,1.1],
+    "ricochetEffect": "cannon_ricochet",
+    "waterCollisionEffect": "big_water_splash",
+    "defFxScale": [1.5,1.8],
+    "waterFxScale": [1.5,1.8],
+    "visual": {
+      "range_percent_of_ammo": [100.0,0.0],
+      "traceFreq": 1,
+      "tracer": "37mmLightRed",
+      "trail": "black"
+    },
+    "collisions": {
+      "steel": {
+        "fx": "cannon_hit_ship_cumulative",
+        "fxScale": [1.3,1.5]
+      },
+      "armor": {
+        "fx": "cannon_hit_ship_cumulative",
+        "fxScale": [1.3,1.5]
+      },
+      "wood": {
+        "fx": "cannon_hit_ship_cumulative",
+        "fxScale": [1.3,1.5]
+      }
+    }
+  },
+  "gunSound": {
+    "path": "sounds/guns",
+    "outside": "ns45_gun_outside",
+    "cockpit": "ns45_gun_inside",
+    "ai": "ns45_gun_ai"
+  },
+  "overheat": [
+    {
+      "overheat": [1.5,0.0]
+    },
+    {
+      "overheat": [8.0,0.5]
+    },
+    {
+      "overheat": [12.5,0.9]
+    }
+  ],
+  "deviation": [
+    {
+      "deviation": [0.5,5.0]
+    },
+    {
+      "deviation": [0.8,20.0]
+    },
+    {
+      "deviation": [4.0,40.0]
+    }
+  ],
+  "ns45_new_gun": {
+    "maxDeltaAngle": 0.5,
+    "overheat": [
+      {
+        "overheat": [1.0,0.0]
+      },
+      {
+        "overheat": [6.0,0.5]
+      },
+      {
+        "overheat": [10.0,0.9]
+      }
+    ]
+  }
+}
