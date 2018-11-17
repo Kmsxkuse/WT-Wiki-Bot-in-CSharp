@@ -1,15 +1,14 @@
-﻿using System;
-using System.IO;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WT_Wiki_Bot_in_CSharp
 {
-    class Initialization
+    internal class Initialization
     {
         private static void Main(string[] args)
         {
@@ -38,24 +37,27 @@ namespace WT_Wiki_Bot_in_CSharp
                 RunFile(@".\wt-tools\vromfs_unpacker.exe", @".\War-Thunder-Files\aces.vromfs.bin");
                 Directory.Move(@".\War-Thunder-Files\aces.vromfs.bin_u\gamedata\weapons", @".\War-Thunder-Files\weapons");
                 Directory.Delete(@".\War-Thunder-Files\aces.vromfs.bin_u", true);
-                Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetDirectories(), (subDir) =>
+                foreach (var subDir in new DirectoryInfo(@".\War-Thunder-Files\weapons").GetDirectories())
                 {
                     subDir.Delete(true);
-                });
-                Console.WriteLine("Unpacking BLK files.");
+                }
+                /*
+                Console.WriteLine("Unpacking BLK files and deleting them.");
                 Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), (currentFile) =>
                 {
                     RunFile(@".\wt-tools\blk_unpack.exe", Path.Combine(@".\War-Thunder-Files\weapons\", currentFile.ToString()));
+                    currentFile.Delete();
                 });
-                Console.WriteLine("Deleting BLK files.");
-                Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles("*.blk").Where(f => f.Extension == ".blk"),
-                    (currentFile) =>
-                    {
-                        currentFile.Delete();
-                    });
-                Console.WriteLine("Finished.");
-                Console.ReadKey();
+                */
+                Console.WriteLine("Finished isolating Weapons folder.");
             }
+            // Reading Weapons Folder
+            //Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), Blk.BlkUnpack);
+            foreach (var fileInfo in new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles())
+            {
+                Blk.BlkUnpack(fileInfo);
+            }
+            Console.ReadKey();
         }
 
         private static void RunFile(string fileName, string target)
