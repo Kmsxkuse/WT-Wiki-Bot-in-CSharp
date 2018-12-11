@@ -8,36 +8,36 @@ using System.Threading.Tasks;
 
 namespace WT_Wiki_Bot_in_CSharp
 {
-    internal class Initialization
+    internal static class Initialization
     {
         private static void Main(string[] args)
         {
             // Checking for Pre-initialized Weapons Folder.
-            if (!Directory.Exists(@".\War-Thunder-Files\weapons"))
+            if (!Directory.Exists(@"..\..\War-Thunder-Files\weapons"))
             {
                 Console.WriteLine("Weapons folder not found.");
-                if (Directory.Exists(@".\War-Thunder-Files\aces.vromfs.bin_u"))
+                if (Directory.Exists(@"..\..\War-Thunder-Files\aces.vromfs.bin_u"))
                 {
                     Console.WriteLine("Removing previous Aces.vromfs.bin_u.");
-                    Directory.Delete(@".\War-Thunder-Files\aces.vromfs.bin_u", true);
+                    Directory.Delete(@"..\..\War-Thunder-Files\aces.vromfs.bin_u", true);
                 }
-                if (!(File.Exists(@".\wt-tools\blk_unpack.exe") && File.Exists(@".\wt-tools\vromfs_unpacker.exe")))
+                if (!(File.Exists(@"..\..\wt-tools\blk_unpack.exe") && File.Exists(@"..\..\wt-tools\vromfs_unpacker.exe")))
                 {
                     Console.WriteLine("WT-Tools not found in main directory.");
                     Console.ReadKey();
                     System.Environment.Exit(1);
                 }
-                if (!File.Exists(@".\War-Thunder-Files\aces.vromfs.bin"))
+                if (!File.Exists(@"..\..\War-Thunder-Files\aces.vromfs.bin"))
                 {
                     Console.WriteLine("Aces.vromfs.bin not found in War-Thunder-Files.");
                     Console.ReadKey();
                     System.Environment.Exit(2);
                 }
                 Console.WriteLine("Running Vromfs Depacker on Aces.");
-                RunFile(@".\wt-tools\vromfs_unpacker.exe", @".\War-Thunder-Files\aces.vromfs.bin");
-                Directory.Move(@".\War-Thunder-Files\aces.vromfs.bin_u\gamedata\weapons", @".\War-Thunder-Files\weapons");
-                Directory.Delete(@".\War-Thunder-Files\aces.vromfs.bin_u", true);
-                foreach (var subDir in new DirectoryInfo(@".\War-Thunder-Files\weapons").GetDirectories())
+                RunFile(@"..\..\wt-tools\vromfs_unpacker.exe", @"..\..\War-Thunder-Files\aces.vromfs.bin");
+                Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\gamedata\weapons", @"..\..\War-Thunder-Files\weapons");
+                Directory.Delete(@"..\..\War-Thunder-Files\aces.vromfs.bin_u", true);
+                foreach (var subDir in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetDirectories())
                 {
                     subDir.Delete(true);
                 }
@@ -53,7 +53,7 @@ namespace WT_Wiki_Bot_in_CSharp
             }
             // Reading Weapons Folder
             //Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), Blk.BlkUnpack);
-            foreach (var fileInfo in new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles())
+            foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
             {
                 Blk.BlkUnpack(fileInfo);
             }

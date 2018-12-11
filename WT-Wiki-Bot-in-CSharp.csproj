@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>WT_Wiki_Bot_in_CSharp</RootNamespace>
     <AssemblyName>WT-Wiki-Bot-in-CSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>

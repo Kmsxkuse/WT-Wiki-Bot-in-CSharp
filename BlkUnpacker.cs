@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WT_Wiki_Bot_in_CSharp {
 
-    internal class Blk
+    internal static class Blk
     {
         // Dictionary of C++ Types.
         private static readonly Dictionary<int, string> TypeList = new Dictionary<int, string> {
@@ -130,8 +130,8 @@ namespace WT_Wiki_Bot_in_CSharp {
                 while (fileContents.BaseStream.Position % 4 != 0) {
                     fileContents.BaseStream.Seek(1, SeekOrigin.Current);
                 }
-
-                var parsedBlock = ParseData(subUnitKeys, fileContents, keyList);
+                var blockSize = new[] { fileContents.ReadUInt16(), fileContents.ReadUInt16() };
+                var parsedBlock = ParseData(subUnitKeys, fileContents, keyList, blockSize);
                 Console.WriteLine("Test");
             }
         }
@@ -139,10 +139,9 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// <summary>
         /// Unpacks inner blocks.
         /// </summary>
-        private static Dictionary<string, object> ParseData(IReadOnlyList<byte[]> subUnitKeys, BinaryReader fileReader, IReadOnlyDictionary<int, string> keyList) {
+        private static Dictionary<string, object> ParseData(IReadOnlyList<byte[]> subUnitKeys, BinaryReader fileReader, IReadOnlyDictionary<int, string> keyList, IList<ushort> blockSize) {
             var curBlock = new Dictionary<string, object>();
-            var blockSize = new[] { fileReader.ReadUInt16(), fileReader.ReadUInt16() };
-            while (fileReader.PeekChar() != -1) {
+            while (fileReader.BaseStream.Position < fileReader.BaseStream.Length) {
                 if (blockSize[0] > 0) {
                     /*
                      * blockKeyList:
@@ -172,15 +171,15 @@ namespace WT_Wiki_Bot_in_CSharp {
                 } else {
                     // For blockSize[0] == 0
                     var keyInfo = GetBlockInfo(fileReader);
-                    if (keyInfo[2] != null) {
-                        fileReader.BaseStream.Seek(-4, SeekOrigin.Current);
-                        var innerBlock = ParseData(subUnitKeys, fileReader, keyList);
+                    if (!blockSize.SequenceEqual(new ushort[] { 0, 0 })) { // Checking for empty group. BlockSize != [0, 0]
+                        var innerBlock = ParseData(subUnitKeys, fileReader, keyList, ((ushort[]) keyInfo[2]));
                         var newInfo = new[] {
                             keyInfo[0],
                             keyInfo[1],
                             innerBlock
                         };
-                        curBlock = CheckBlock(FromIDtoString(newInfo, subUnitKeys, keyList), curBlock);
+                        curBlock = CheckBlock(new [] {FromIDtoString(newInfo, subUnitKeys, keyList)[0], innerBlock}, curBlock);
+                        blockSize[1]--;
                     }
                 }
 
@@ -206,12 +205,13 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// <summary>
         /// Checks for duplication in curBlock before appending to curBlock.
         /// </summary>
-        private static int _usedPlaceHolders = 0;
+        private static int _usedPlaceHolders = 1;
 
         private static Dictionary<string, object> CheckBlock(IReadOnlyList<object> dataObjects, Dictionary<string, object> curBlock) {
             if (curBlock.ContainsKey((string)dataObjects[0])) {
                 var newKey = (string)dataObjects[0] + _usedPlaceHolders++;
                 curBlock.Add(newKey, dataObjects[1]);
+                return curBlock;
             }
             curBlock.Add((string)dataObjects[0], dataObjects[1]);
             return curBlock;
@@ -350,7 +350,7 @@ namespace WT_Wiki_Bot_in_CSharp {
                 case "m4x3f":
                     float[] ret =
                     {
-                        GetBlockValue(0x5, fileReader),
+                        GetBlockValue(0x5, fileReader), // "vec3f"
                         GetBlockValue(0x5, fileReader),
                         GetBlockValue(0x5, fileReader),
                         GetBlockValue(0x5, fileReader)
