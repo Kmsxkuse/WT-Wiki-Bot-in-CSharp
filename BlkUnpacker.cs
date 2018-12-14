@@ -31,7 +31,7 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// <remarks>
         /// Converted from Python of https://github.com/klensy/wt-tools/tree/dev
         /// </remarks>
-        public static void BlkUnpack(FileInfo fileStuff) {
+        public static Dictionary<string, object> BlkUnpack(FileInfo fileStuff) {
             // Various Constants I have no clue where they came from.
             const int numOfUnitsInFileCount = 0xe;
             const int unitsLengthTypeCount = 0xd;
@@ -131,8 +131,7 @@ namespace WT_Wiki_Bot_in_CSharp {
                     fileContents.BaseStream.Seek(1, SeekOrigin.Current);
                 }
                 var blockSize = new[] { fileContents.ReadUInt16(), fileContents.ReadUInt16() };
-                var parsedBlock = ParseData(subUnitKeys, fileContents, keyList, blockSize);
-                Console.WriteLine("Test");
+                return ParseData(subUnitKeys, fileContents, keyList, blockSize);
             }
         }
 
@@ -187,7 +186,6 @@ namespace WT_Wiki_Bot_in_CSharp {
                     break;
                 }
             }
-
             return curBlock;
         }
 
@@ -203,10 +201,13 @@ namespace WT_Wiki_Bot_in_CSharp {
         }
 
         /// <summary>
-        /// Checks for duplication in curBlock before appending to curBlock.
+        /// String Placeholder Name addition to prevent duplication
         /// </summary>
         private static int _usedPlaceHolders = 1;
-
+        
+        /// <summary>
+        /// Checks for Name duplication in curBlock before appending to curBlock.
+        /// </summary>
         private static Dictionary<string, object> CheckBlock(IReadOnlyList<object> dataObjects, Dictionary<string, object> curBlock) {
             if (curBlock.ContainsKey((string)dataObjects[0])) {
                 var newKey = (string)dataObjects[0] + _usedPlaceHolders++;

@@ -55,7 +55,8 @@ namespace WT_Wiki_Bot_in_CSharp
             //Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), Blk.BlkUnpack);
             foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
             {
-                Blk.BlkUnpack(fileInfo);
+                var parsedFile = Blk.BlkUnpack(fileInfo);
+                RawParser.CompletedArr(parsedFile, fileInfo.Name);
             }
             Console.ReadKey();
         }
