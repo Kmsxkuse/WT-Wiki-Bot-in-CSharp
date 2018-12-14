@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WT_Wiki_Bot_in_CSharp {
     internal static class RawParser {
@@ -31,6 +32,7 @@ namespace WT_Wiki_Bot_in_CSharp {
                 1. Gun Name
             */
             var test = GunInfo(rawBlk);
+            var test1 = NameCleaning(fileName);
             Console.WriteLine("TESTING");
         }
 
@@ -95,8 +97,20 @@ namespace WT_Wiki_Bot_in_CSharp {
             };
         }
         
-        private static void NameCleaning(string fileName) {
-            
+        private static string[] NameCleaning(string fileName) {
+            string Capitalizing(Match m) {
+                return m.Groups[1].Value.ToUpper();
+            }
+
+            var cleaning = fileName.Substring(0, fileName.LastIndexOf('.'))
+                .Replace('_', ' ')
+                .Replace("cannon", "")
+                .Replace("gun", "");
+            cleaning = Regex.Replace(cleaning, @"(\b[a-z](?!\b))", Capitalizing);
+            return new [] {
+                fileName,
+                cleaning
+            };
         }
     }
 }
