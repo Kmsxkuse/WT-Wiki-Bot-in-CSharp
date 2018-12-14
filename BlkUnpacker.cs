@@ -40,7 +40,7 @@ namespace WT_Wiki_Bot_in_CSharp {
 
             // Starting File Read
             using (var fileContents = new BinaryReader(fileStuff.Open(FileMode.Open))) {
-                FileTypeErr(fileContents);
+                FileTypeErr(fileContents, fileStuff);
 
                 // FileTypeErr already read three bytes in. Fourth Byte is version number.
                 // As of November 16, 2018, it's Version 3.
@@ -382,10 +382,9 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// Checking File Header. BLK: "\x0BBF" or "00424246" in Hex.
         /// Throws Exception with Filename as parameter.
         /// </summary>
-        private static void FileTypeErr(BinaryReader fileInput) {
-            // Todo: Add File Name to Exception.
+        private static void FileTypeErr(BinaryReader fileInput, FileSystemInfo fileStuff) {
             if (ByteArrayToString(fileInput.ReadBytes(4)) != "00424246") {
-                throw new Exception($"Error: File is not a proper .blk file.");
+                throw new Exception($"Error: {fileStuff.Name} is not a proper .blk file.");
             }
         }
 

@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace WT_Wiki_Bot_in_CSharp {
@@ -14,41 +10,82 @@ namespace WT_Wiki_Bot_in_CSharp {
             Information Array Layout:
             0.
                 0. All Unique Bullets
-                1. Armor Pen Information of Unique Bullets
             1.
                 0. Name of Spaded Ammo Belts
                 1. ID of Bullets contained in Spaded Ammo Belts
-                2. Max Armor Pen Values of each Belt
             2.
                 0. ID of Bullets contained in Stock/Default Ammo Belt
-                1. Max Armor Pen of Belt
             3.
+                0. Armor Pen of Unique Bullets
+                1. Max Armor Pen of Spaded Belts
+            4.
                 0. New Gun/Stock Gun Dispersion
                 1. Cannon Check
                 2. ROF
                 3. Caliber
-            4.
+            5.
                 0. Filename
                 1. Gun Name
             */
             var test = GunInfo(rawBlk);
             var test1 = NameCleaning(fileName);
+            ConstructBulletArr(GetSpadedBelts(rawBlk), GetStockBelts(rawBlk));
             Console.WriteLine("TESTING");
         }
 
-        private static void UniqueBullet(IReadOnlyDictionary<string, object> rawBlk) {
+        private static void ConstructBulletArr(IReadOnlyCollection<KeyValuePair<string, object>> spadedBelts, IEnumerable<KeyValuePair<string, object>> stockBelts) {
+            // Spaded Belt Names
+            var allKeys = (from beltNames in spadedBelts select beltNames.Key).Distinct().ToList();
+            // All Bullets
+            var bulletList = new List<object>();
             
+            // Spaded Belts
+            var sBList = from belt in spadedBelts select belt.Value;
+            foreach (var belt in sBList) {
+                // TODO: LINQ this addition.
+                bulletList.AddRange(((Dictionary<string, object>) belt).Values.ToList());
+            }
+            
+            // Stock Belts
+            bulletList.AddRange((from bullet in stockBelts select bullet.Value).ToList());
+            
+            // Bullet all IDs.
+            var bIDs = GetChecksum(bulletList);
+            
+            // Filtering Uniques.
+            var uniqueIDs = bIDs.Distinct().ToList();
+            
+            // TODO: Unique-ify bulletList then checksum() it.
+            
+            Console.WriteLine("STOP");
+        }
+
+        private static IEnumerable<decimal> GetChecksum(IEnumerable<object> bulletList) {
+            return bulletList
+                .Select(info =>
+                    from values in (Dictionary<string, object>) info where values.Value is decimal select values)
+                .Select(numbers => (from num in numbers select (decimal) num.Value).Sum()).ToList();
         }
         
-        private static void SpadedBelts(IReadOnlyDictionary<string, object> rawBlk) {
-            
+        private static List<KeyValuePair<string, object>> GetSpadedBelts(IReadOnlyDictionary<string, object> rawBlk) {
+            var spadedBelts = (from x in rawBlk
+                where !x.Key.Contains("bullet") &&
+                      x.Value.GetType() == typeof(Dictionary<string, object>) &&
+                      ((Dictionary<string, object>) x.Value).ContainsKey("bullet")
+                select x).ToList();
+            return spadedBelts;
         }
         
-        private static void StockBelts(IReadOnlyDictionary<string, object> rawBlk) {
-            
+        private static IEnumerable<KeyValuePair<string, object>> GetStockBelts(IReadOnlyDictionary<string, object> rawBlk) {
+            var stockBullets = from x in rawBlk
+                where x.Key.Contains("bullet") && x.Value.GetType() == typeof(Dictionary<string, object>)
+                select x;
+            return stockBullets;
         }
         
         private static IEnumerable<object> GunInfo(IReadOnlyDictionary<string, object> rawBlk) {
+            // TODO: Possible Async with c# Promise Equiv?
+            
             string CannonCheck() {
                 if (rawBlk.ContainsKey("cannon") && ((bool) rawBlk["cannon"])) {
                     return "Yes";
@@ -97,7 +134,7 @@ namespace WT_Wiki_Bot_in_CSharp {
             };
         }
         
-        private static string[] NameCleaning(string fileName) {
+        private static IEnumerable<string> NameCleaning(string fileName) {
             string Capitalizing(Match m) {
                 return m.Groups[1].Value.ToUpper();
             }
@@ -107,6 +144,7 @@ namespace WT_Wiki_Bot_in_CSharp {
                 .Replace("cannon", "")
                 .Replace("gun", "");
             cleaning = Regex.Replace(cleaning, @"(\b[a-z](?!\b))", Capitalizing);
+            
             return new [] {
                 fileName,
                 cleaning
