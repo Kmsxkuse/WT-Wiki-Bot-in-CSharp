@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -56,7 +54,7 @@ namespace WT_Wiki_Bot_in_CSharp
             foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
             {
                 var parsedFile = Blk.BlkUnpack(fileInfo);
-                RawParser.CompletedArr(parsedFile, fileInfo.Name);
+                var infoList = RawParser.CompletedArr(parsedFile, fileInfo.Name);
             }
             Console.ReadKey();
         }

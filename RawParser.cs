@@ -5,17 +5,19 @@ using System.Text.RegularExpressions;
 
 namespace WT_Wiki_Bot_in_CSharp {
     internal static class RawParser {
-        public static void CompletedArr(Dictionary<string, object> rawBlk, string fileName) {
+        public static IEnumerable<List<object>> CompletedArr(Dictionary<string, object> rawBlk, string fileName) {
             /*
-            Information Array Layout:
+            Information List Layout:
             0.
                 0. All Unique Bullets
+                1. Unique Bullet IDs.
             1.
                 0. Name of Spaded Ammo Belts
                 1. ID of Bullets contained in Spaded Ammo Belts
             2.
-                0. ID of Bullets contained in Stock/Default Ammo Belt
-            3.
+                0. Name of Default Ammo Belt. Default is "Default". Duh.
+                1. ID of Bullets contained in Stock/Default Ammo Belt
+            3. < Not Implemented Yet >
                 0. Armor Pen of Unique Bullets
                 1. Max Armor Pen of Spaded Belts
             4.
@@ -27,37 +29,49 @@ namespace WT_Wiki_Bot_in_CSharp {
                 0. Filename
                 1. Gun Name
             */
-            var test = GunInfo(rawBlk);
-            var test1 = NameCleaning(fileName);
-            ConstructBulletArr(GetSpadedBelts(rawBlk), GetStockBelts(rawBlk));
-            Console.WriteLine("TESTING");
+            var infoList = ConstructBulletArr(GetSpadedBelts(rawBlk), GetStockBelts(rawBlk));
+            infoList.Add(GunInfo(rawBlk));
+            infoList.Add(NameCleaning(fileName));
+
+            return infoList;
         }
 
-        private static void ConstructBulletArr(IReadOnlyCollection<KeyValuePair<string, object>> spadedBelts, IEnumerable<KeyValuePair<string, object>> stockBelts) {
+        private static List<List<object>> ConstructBulletArr(IReadOnlyCollection<KeyValuePair<string, object>> spadedBelts, IEnumerable<KeyValuePair<string, object>> stockBelts) {
             // Spaded Belt Names
             var allKeys = (from beltNames in spadedBelts select beltNames.Key).Distinct().ToList();
             // All Bullets
             var bulletList = new List<object>();
             
             // Spaded Belts
-            var sBList = from belt in spadedBelts select belt.Value;
-            foreach (var belt in sBList) {
-                // TODO: LINQ this addition.
-                bulletList.AddRange(((Dictionary<string, object>) belt).Values.ToList());
-            }
+            var sBList = (from belt in spadedBelts select belt.Value).ToList();
+            sBList.ForEach(belt => bulletList.AddRange(((Dictionary<string, object>) belt).Values.ToList()));
             
             // Stock Belts
-            bulletList.AddRange((from bullet in stockBelts select bullet.Value).ToList());
+            var stockBList = (from bullet in stockBelts select bullet.Value).ToList();
+            bulletList.AddRange(stockBList);
             
-            // Bullet all IDs.
-            var bIDs = GetChecksum(bulletList);
+            // Unique-ify BulletList by Mass and BulletType
+            bulletList = bulletList.GroupBy(x => new {
+                massVerifier = ((Dictionary<string, object>) x).First(mass => mass.Key == "mass"),
+                nameVerifier = ((Dictionary<string, object>) x).First(bulletType => bulletType.Key == "bulletType")
+            }).Select(y => y.First()).ToList();
             
-            // Filtering Uniques.
-            var uniqueIDs = bIDs.Distinct().ToList();
+            var returnList = new List<List<object>> {
+                new List<object> {
+                    bulletList,
+                    GetChecksum(bulletList)
+                },
+                new List<object> {
+                    allKeys
+                },
+                new List<object>() {
+                    "Default",
+                    GetChecksum(stockBList)
+                }
+            };
             
-            // TODO: Unique-ify bulletList then checksum() it.
-            
-            Console.WriteLine("STOP");
+            sBList.ForEach(belt => returnList[1].Add(GetChecksum(((Dictionary<string, object>) belt).Values.ToList())));
+            return returnList;
         }
 
         private static IEnumerable<decimal> GetChecksum(IEnumerable<object> bulletList) {
@@ -83,7 +97,7 @@ namespace WT_Wiki_Bot_in_CSharp {
             return stockBullets;
         }
         
-        private static IEnumerable<object> GunInfo(IReadOnlyDictionary<string, object> rawBlk) {
+        private static List<object> GunInfo(IReadOnlyDictionary<string, object> rawBlk) {
             // TODO: Possible Async with c# Promise Equiv?
             
             string CannonCheck() {
@@ -126,7 +140,7 @@ namespace WT_Wiki_Bot_in_CSharp {
                 compiled[1] = (decimal) rawBlk["maxDeltaAngle"];
                 return compiled;
             }
-            return new object[] {
+            return new List<object> {
                 Dispersion(),
                 CannonCheck(),
                 RofCheck(),
@@ -134,7 +148,7 @@ namespace WT_Wiki_Bot_in_CSharp {
             };
         }
         
-        private static IEnumerable<string> NameCleaning(string fileName) {
+        private static List<object> NameCleaning(string fileName) {
             string Capitalizing(Match m) {
                 return m.Groups[1].Value.ToUpper();
             }
@@ -145,7 +159,7 @@ namespace WT_Wiki_Bot_in_CSharp {
                 .Replace("gun", "");
             cleaning = Regex.Replace(cleaning, @"(\b[a-z](?!\b))", Capitalizing);
             
-            return new [] {
+            return new List<object> {
                 fileName,
                 cleaning
             };
