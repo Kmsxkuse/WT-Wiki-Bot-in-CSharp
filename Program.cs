@@ -39,14 +39,6 @@ namespace WT_Wiki_Bot_in_CSharp
                 {
                     subDir.Delete(true);
                 }
-                /*
-                Console.WriteLine("Unpacking BLK files and deleting them.");
-                Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), (currentFile) =>
-                {
-                    RunFile(@".\wt-tools\blk_unpack.exe", Path.Combine(@".\War-Thunder-Files\weapons\", currentFile.ToString()));
-                    currentFile.Delete();
-                });
-                */
                 Console.WriteLine("Finished isolating Weapons folder.");
             }
             // Reading Weapons Folder
@@ -54,7 +46,8 @@ namespace WT_Wiki_Bot_in_CSharp
             foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
             {
                 var parsedFile = Blk.BlkUnpack(fileInfo);
-                var infoList = RawParser.CompletedArr(parsedFile, fileInfo.Name);
+                var infoList = RawParser.CompletedArr(parsedFile, fileInfo);
+                ExportStart.Main(infoList);
             }
             Console.ReadKey();
         }

@@ -53,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlkUnpacker.cs" />
+    <Compile Include="ExportMain.cs" />
+    <Compile Include="ExportStart.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RawParser.cs" />
