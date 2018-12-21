@@ -42,12 +42,12 @@ namespace WT_Wiki_Bot_in_CSharp
                 Console.WriteLine("Finished isolating Weapons folder.");
             }
             // Reading Weapons Folder
-            //Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), Blk.BlkUnpack);
+            //Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), new ParallelOptions { MaxDegreeOfParallelism = 4 }, Blk.BlkUnpack);
             foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
             {
                 var parsedFile = Blk.BlkUnpack(fileInfo);
                 var infoList = RawParser.CompletedArr(parsedFile, fileInfo);
-                ExportStart.Main(infoList);
+                ExportMain.Main(infoList);
             }
             Console.ReadKey();
         }

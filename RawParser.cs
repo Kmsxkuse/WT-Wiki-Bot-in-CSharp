@@ -39,29 +39,57 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// <summary>
         /// New Gun/Stock Gun Dispersion
         /// </summary>
-        public decimal[] GunDispersion {get; set;}
+        public GunDis GunDispersion {get; private set;}
+        /// <summary>
+        /// Gun Dispersion Data Object.
+        /// </summary>
+        public class GunDis {
+            /// <summary>
+            /// Stock Dispersion at 500m
+            /// </summary>
+            public decimal StockDis { get; }
+            /// <summary>
+            /// Spaded Dispersion at 500m
+            /// </summary>
+            public decimal SpadedDis { get; }
+
+            /// <summary>
+            /// Assigning Stock and Spaded Dispersion Information
+            /// </summary>
+            /// <param name="disInfoArr"></param>
+            public GunDis(IReadOnlyList<decimal> disInfoArr) {
+                StockDis = disInfoArr[0];
+                SpadedDis = disInfoArr[1];
+            }
+        }
         /// <summary>
         /// Cannon Check
         /// </summary>
-        public string Cannon {get; set;}
+        public string Cannon {get; private set;}
         /// <summary>
         /// Rate of Fire Per Minute
         /// </summary>
-        public decimal Rof {get; set;}
+        public decimal Rof {get; private set;}
         /// <summary>
         /// Gun Caliber in mm
         /// </summary>
-        public decimal Caliber {get; set;}
+        public decimal Caliber {get; private set;}
+        /// <summary>
+        /// Effective Distance in m
+        /// </summary>
+        public decimal EffectiveDistance {get; private set;}
+
 
         /// <summary>
         /// Info List Gun Info Setter
         /// </summary>
         /// <param name="gunInfoList"></param>
         internal void SetGunInfo(List<object> gunInfoList) {
-            GunDispersion = (decimal[]) gunInfoList[0];
+            GunDispersion = new GunDis((decimal[]) gunInfoList[0]);
             Cannon = (string) gunInfoList[1];
             Rof = (decimal) gunInfoList[2];
             Caliber = (decimal) gunInfoList[3];
+            EffectiveDistance = (decimal) gunInfoList[4];
         }
         
         /// <summary>
@@ -161,14 +189,14 @@ namespace WT_Wiki_Bot_in_CSharp {
 
             decimal RofCheck() {
                 if (rawBlk.ContainsKey("shotFreq")) {
-                    return (decimal) rawBlk["shotFreq"] * 60;
+                    return Math.Round((decimal) rawBlk["shotFreq"] * 60);
                 }
                 throw new Exception("ROFChecker could not find shotFreq.");
             }
 
             decimal CaliberCheck() {
                 if (rawBlk.ContainsKey("bullet")) {
-                    return (decimal) ((Dictionary<string, object>) rawBlk["bullet"])["caliber"] * 1000;
+                    return Math.Round((decimal) ((Dictionary<string, object>) rawBlk["bullet"])["caliber"] * 1000);
                 }
                 throw new Exception("CaliberCheck could not find bullet.");
             }
@@ -184,19 +212,29 @@ namespace WT_Wiki_Bot_in_CSharp {
                     throw new Exception("More than one _new_gun found.");
                 }
                 
-                compiled[0] = (decimal) ((Dictionary<string, object>) sDList.First().Value)["maxDeltaAngle"];
+                compiled[0] = Math.Round((decimal) Math.Tan(
+                                             (double) (decimal) ((Dictionary<string, object>) sDList.First().Value)[
+                                                 "maxDeltaAngle"] * Math.PI / 180) * 500, 2);
                 
                 if (!rawBlk.ContainsKey("maxDeltaAngle"))
                     throw new Exception("Dispersion could not find stock maxDeltaAngle.");
                 
-                compiled[1] = (decimal) rawBlk["maxDeltaAngle"];
+                compiled[1] = Math.Round((decimal) Math.Tan((double) (decimal) rawBlk["maxDeltaAngle"] * Math.PI / 180) * 500, 2);
                 return compiled;
+            }
+
+            decimal EffectiveDistance() {
+                if (rawBlk.ContainsKey("bullet") && ((Dictionary<string, object>) rawBlk["bullet"]).ContainsKey("effectiveDistance")) {
+                    return (decimal) ((Dictionary<string, object>) rawBlk["bullet"])["effectiveDistance"];
+                }
+                throw new Exception("Effective Distance could not be found.");
             }
             return new List<object> {
                 Dispersion(),
                 CannonCheck(),
                 RofCheck(),
-                CaliberCheck()
+                CaliberCheck(),
+                EffectiveDistance()
             };
         }
         
