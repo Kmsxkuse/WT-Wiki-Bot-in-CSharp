@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlkUnpacker.cs" />
+    <Compile Include="ExportArmorPen.cs" />
     <Compile Include="ExportBasic.cs" />
+    <Compile Include="ExportDamage.cs" />
     <Compile Include="ExportMain.cs" />
     <Compile Include="ExportStart.cs" />
     <Compile Include="ExportWeapon.cs" />

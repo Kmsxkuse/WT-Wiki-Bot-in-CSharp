@@ -17,6 +17,8 @@ namespace WT_Wiki_Bot_in_CSharp {
                 outputArr[1] = ExportBasic.Main(infoList);
             }, () => {
                 outputArr[2] = ExportWeapon.Main(infoList);
+            }, () => {
+                outputArr[3] = ExportArmorPen.Main(infoList);
             });
             var completedExport = string.Join("", outputArr);
             Console.WriteLine("TEST");

@@ -5,23 +5,23 @@ namespace WT_Wiki_Bot_in_CSharp {
         public static string Main(InfoArray infoList) {
             var barOMatic = $@"<div class = ""mw-collapsible-content"" style = ""border:solid lightgray; background:white; margin-left:1%; padding:1%; overflow:auto"">
 <div style = ""text-align:center; font-size:1.5rem;"">RoF Bar-o-matic:</div>
-<div style = ""background: linear-gradient(to right, red, yellow, green); font-size:3rem; width:auto; height:3rem; padding:1rem 0 0 {PaddingLeft(infoList.Rof)}%; margin:0.3rem 19.5% 0.25rem""> | </div>
+<div style = ""background: linear-gradient(to right, red, yellow, green); font-size:3rem; width:auto; height:auto; padding:0 0 0 {PaddingLeft(infoList.Rof)}%; margin:0.3rem 19.5% 0.25rem""> | </div>
 ";
             var wikiTable = $@"{{|class=""wikitable"" style = ""width:75%; margin:0 auto 1rem; font-size:1.2rem""
-|+ style = ""width:auto; font-size:2.0rem; text-align:center; margin:0.5rem 0 1rem"" | Rate Of Fire: {infoList.Rof} rounds per minute
-! style = ""width:33%"" | Cannon
+|+ style = ""width:auto; font-size:2.0rem; margin:1.5rem 0"" | Rate of Fire: {infoList.Rof} rounds per minute
+! style = ""width:33%; padding:0.5rem 0"" | Cannon
 ! style = ""width:33%"" | Caliber
 ! style = ""width:33%"" | Effective Distance
 |-
-| style = ""text-align:center"" | {infoList.Cannon}
+| style = ""text-align:center; padding:0.5rem 0"" | {infoList.Cannon}
 | style = ""text-align:center"" | {infoList.Caliber}mm
 | style = ""text-align:center"" | {infoList.EffectiveDistance}m
 |}}
 {{|class=""wikitable"" style = ""width:75%; margin:0 auto 1rem; font-size:1.2rem""
-! style = ""width:50%"" | Spaded Disp @ 500m
+! style = ""width:50%; padding:0.5rem 0"" | Spaded Disp @ 500m
 ! style = ""width:50%"" | Stock Disp @ 500m
 |-
-| style = ""text-align:center"" | {infoList.GunDispersion.SpadedDis}m
+| style = ""text-align:center; padding:0.5rem 0"" | {infoList.GunDispersion.SpadedDis}m
 | style = ""text-align:center"" | {infoList.GunDispersion.StockDis}m
 |}}
 </div>
@@ -29,7 +29,7 @@ namespace WT_Wiki_Bot_in_CSharp {
             var exportFile = $@"<div class = ""mw-customtoggle-weaponInfo_{infoList.FileName}"" style=""font-size:1.2rem; text-align:center; width:auto; overflow:auto; border:solid green; border-radius: 0.625rem; background:lightgreen;"">
 <strong><i>Weapon Information</i></strong>
 </div>
-<div class = ""mw-collapsible"" id = ""mw-customcollapsible-weaponInfo_{infoList.FileName}"" style = ""width:99%; overflow:auto;"">
+<div class = ""mw-collapsible mw-collapsed"" id = ""mw-customcollapsible-weaponInfo_{infoList.FileName}"" style = ""width:99%; overflow:auto;"">
 {barOMatic}
 {wikiTable}
 ";
