@@ -57,6 +57,7 @@
     <Compile Include="ExportBasic.cs" />
     <Compile Include="ExportDamage.cs" />
     <Compile Include="ExportMain.cs" />
+    <Compile Include="ExportOldTables.cs" />
     <Compile Include="ExportStart.cs" />
     <Compile Include="ExportWeapon.cs" />
     <Compile Include="Program.cs" />

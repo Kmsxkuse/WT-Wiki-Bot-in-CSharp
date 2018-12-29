@@ -10,7 +10,7 @@ namespace WT_Wiki_Bot_in_CSharp {
     internal static class ExportMain {
         public static void Main(InfoArray infoList) {
             // TODO: Async export creation here.
-            var outputArr = new string[5];
+            var outputArr = new string[6];
             Parallel.Invoke(() => {
                 outputArr[0] = ExportStart.Main(infoList);
             }, () => {
@@ -18,7 +18,11 @@ namespace WT_Wiki_Bot_in_CSharp {
             }, () => {
                 outputArr[2] = ExportWeapon.Main(infoList);
             }, () => {
-                outputArr[3] = ExportArmorPen.Main(infoList);
+                outputArr[3] = ExportDamage.Main(infoList);
+            }, () => {
+                outputArr[4] = ExportArmorPen.Main(infoList);
+            }, () => {
+                outputArr[5] = ExportOldTables.Main(infoList);
             });
             var completedExport = string.Join("", outputArr);
             Console.WriteLine("TEST");
