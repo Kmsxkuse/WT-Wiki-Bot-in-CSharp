@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace WT_Wiki_Bot_in_CSharp {
     internal static class ExportMain {
         public static void Main(InfoArray infoList) {
-            // TODO: Async export creation here.
             var outputArr = new string[6];
             Parallel.Invoke(() => {
                 outputArr[0] = ExportStart.Main(infoList);
