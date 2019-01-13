@@ -207,14 +207,19 @@ namespace WT_Wiki_Bot_in_CSharp {
                 
                 var sDList = spadedDispersion.ToList();
                 if (!sDList.Any()) {
-                    throw new Exception("Dispersion could not find spaded maxDeltaAngle.");
+                    // Stock Dispersion Not Found
+                    compiled[0] = -1;
                 } else if (sDList.Count() > 1) {
                     throw new Exception("More than one _new_gun found.");
                 }
-                
-                compiled[0] = Math.Round((decimal) Math.Tan(
-                                             (double) (decimal) ((Dictionary<string, object>) sDList.First().Value)[
-                                                 "maxDeltaAngle"] * Math.PI / 180) * 500, 2);
+
+                if (compiled[0] != -1) { // Checking for found stock dispersion
+                    compiled[0] =
+                        Math.Round(
+                            (decimal) Math.Tan(
+                                (double) (decimal) ((Dictionary<string, object>) sDList.First().Value)[
+                                    "maxDeltaAngle"] * Math.PI / 180) * 500, 2);
+                }
                 
                 if (!rawBlk.ContainsKey("maxDeltaAngle"))
                     throw new Exception("Dispersion could not find stock maxDeltaAngle.");
@@ -227,7 +232,8 @@ namespace WT_Wiki_Bot_in_CSharp {
                 if (rawBlk.ContainsKey("bullet") && ((Dictionary<string, object>) rawBlk["bullet"]).ContainsKey("effectiveDistance")) {
                     return (decimal) ((Dictionary<string, object>) rawBlk["bullet"])["effectiveDistance"];
                 }
-                throw new Exception("Effective Distance could not be found.");
+                // Effective Distance Not Found
+                return -1M;
             }
             return new List<object> {
                 Dispersion(),

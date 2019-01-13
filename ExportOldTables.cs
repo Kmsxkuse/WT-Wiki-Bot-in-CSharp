@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 namespace WT_Wiki_Bot_in_CSharp {
     internal static class ExportOldTables {
         public static string Main(InfoArray infoList) {
+            // TODO: REMOVE, REPLACE WITH BELT REFERENCE TAB.
+            // Just belt names and then bullets within the belt. Real simple.
             var amountIndex = new[] {
                 new [] {"Caliber", "Tracer", "Velocity", "Mass"},
                 new [] {"100m", "250m", "500m", "750m", "1000m"},
