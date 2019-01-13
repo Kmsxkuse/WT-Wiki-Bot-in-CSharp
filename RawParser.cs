@@ -12,7 +12,7 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// <summary>
         /// All Unique Bullets
         /// </summary>
-        public List<object> UniqueBullets {get; set;}
+        public List<object> UniqueBullets { get; }
         /// <summary>
         /// Unique Bullet IDs
         /// </summary>
@@ -21,20 +21,20 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// <summary>
         /// Name of Spaded Bullet Belts
         /// </summary>
-        public List<string> SpadedNames {get; set;}
+        public List<string> SpadedNames { get; }
         /// <summary>
         /// ID of Bullets contained in Spaded Ammo Belts
         /// </summary>
-        public List<List<decimal>> SpadedIDs {get; set;}
+        public List<List<decimal>> SpadedIDs { get; }
         
         /// <summary>
         /// Name of Default Ammo Belt. Default is "Default". Duh.
         /// </summary>
-        public List<string> StockNames {get; set;}
+        public List<string> StockNames { get; }
         /// <summary>
         /// ID of Bullets contained in Stock/Default Ammo Belt
         /// </summary>
-        public List<decimal> StockIDs {get; set;}
+        public List<decimal> StockIDs { get; }
         
         /// <summary>
         /// New Gun/Stock Gun Dispersion
@@ -128,8 +128,8 @@ namespace WT_Wiki_Bot_in_CSharp {
             UniqueBullets = new List<object>();
             SpadedIDs = new List<List<decimal>>();
             var sBList = (from belt in spadedBelts select belt.Value).ToList();
-            sBList.ForEach(belt => UniqueBullets.AddRange(((Dictionary<string, object>) belt).Values.ToList()));
-            sBList.ForEach(belt => SpadedIDs.Add(GetChecksum(((Dictionary<string, object>) belt).Values.ToList())));
+            sBList.ForEach(belt => UniqueBullets.AddRange(((Dictionary<string, object>) belt).Values));
+            sBList.ForEach(belt => SpadedIDs.Add(GetChecksum(((Dictionary<string, object>) belt).Values)));
             
             // Stock Belts
             var stockBList = (from bullet in stockBelts select bullet.Value).ToList();

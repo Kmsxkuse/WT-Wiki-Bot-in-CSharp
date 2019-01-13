@@ -83,8 +83,8 @@ namespace WT_Wiki_Bot_in_CSharp {
                 }
                 
                 // TODO: Shell Names
-                
-                
+
+                innerTable.Append("|}\n");
                 return innerTable;
             }
             
