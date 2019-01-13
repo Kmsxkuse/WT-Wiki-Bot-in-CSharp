@@ -21,7 +21,7 @@ namespace WT_Wiki_Bot_in_CSharp {
             }, () => {
                 outputArr[4] = ExportArmorPen.Main(infoList);
             }, () => {
-                outputArr[5] = ExportOldTables.Main(infoList);
+                outputArr[5] = ExportBeltContents.Main(infoList);
             });
             var completedExport = string.Join("", outputArr);
             Console.WriteLine("TEST");

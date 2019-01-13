@@ -107,7 +107,7 @@ namespace WT_Wiki_Bot_in_CSharp {
 
             var exportFile =
                 $@"<div class=""mw-customtoggle-armor_{infoList.FileName}"" style=""text-align:center;width:auto;overflow:auto;border:solid orange;border-radius:0.625rem;background:mistyrose"">
-<strong style=""font-size:1.2rem;""><i>Armor Penetration Chart</i></strong>
+<span style=""font-size:1.2rem;font-style:italic;font-weight:bold"">Armor Penetration Chart</span>
 </div>
 <div class=""mw-collapsible mw-collapsed"" id=""mw-customcollapsible-armor_{infoList.FileName}"" style=""width:99%;"">
 <div class=""mw-collapsible-content"" style=""border:solid lightgray;background:white;margin-left:1%;padding:0 1%;overflow:auto"">

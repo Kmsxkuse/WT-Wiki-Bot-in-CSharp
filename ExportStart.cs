@@ -5,7 +5,7 @@ namespace WT_Wiki_Bot_in_CSharp {
         public static string Main(InfoArray infoList) {
             var infoText = $@"<strong style = ""font-size:2rem;""> Created by Kmsxkuse. </strong>
 
-Bot Version: [0.1 (C# Edition)]. Bot Last Run: [{DateTime.UtcNow.ToLongDateString()}].
+Bot Version: [1.0 Alpha (C# Edition)]. Bot Last Run: [{DateTime.UtcNow.ToLongDateString()}].
 
 Bot sources: 
 
