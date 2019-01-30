@@ -47,15 +47,30 @@ namespace WT_Wiki_Bot_in_CSharp
                 Console.WriteLine("Export folder not found.");
                 Directory.CreateDirectory(@"..\..\War-Thunder-Files\export");
             }
+            // Starting stopwatch
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            
             // Reading Weapons Folder
-            //Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), new ParallelOptions { MaxDegreeOfParallelism = 4 }, Blk.BlkUnpack);
-            foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
+            Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles(), fileInfo => 
+            {
+                var parsedFile = Blk.BlkUnpack(fileInfo);
+                var infoList = RawParser.CompletedArr(parsedFile, fileInfo);
+                var completedExport = ExportMain.Main(infoList);
+                File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
+            });
+            //foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
+            /*
             {
                 var parsedFile = Blk.BlkUnpack(fileInfo);
                 var infoList = RawParser.CompletedArr(parsedFile, fileInfo);
                 var completedExport = ExportMain.Main(infoList);
                 File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
             }
+            */
+            
+            stopWatch.Stop();
+            Console.WriteLine("Time Spent: " + stopWatch.ElapsedMilliseconds + "ms");
         }
 
         private static void RunFile(string fileName, string target)
