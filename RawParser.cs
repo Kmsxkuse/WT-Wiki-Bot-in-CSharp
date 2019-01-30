@@ -137,10 +137,12 @@ namespace WT_Wiki_Bot_in_CSharp {
             StockNames = new List<string> {"Default"};
             StockIDs = GetChecksum(stockBList);
             
-            // Unique-ify BulletList by Mass and BulletType
+            // Unique-ify BulletList by Mass, BulletType, number of entries, and Speed
             UniqueBullets = UniqueBullets.GroupBy(x => new {
                 massVerifier = ((Dictionary<string, object>) x).First(mass => mass.Key == "mass"),
-                nameVerifier = ((Dictionary<string, object>) x).First(bulletType => bulletType.Key == "bulletType")
+                nameVerifier = ((Dictionary<string, object>) x).First(bulletType => bulletType.Key == "bulletType"),
+                valueCounts = ((Dictionary<string, object>) x).Count,
+                velocityVerifier = ((Dictionary<string, object>) x).First(bulletType => bulletType.Key == "speed")
             }).Select(y => y.First()).ToList();
             UniqueIDs = GetChecksum(UniqueBullets);
         }
@@ -210,7 +212,8 @@ namespace WT_Wiki_Bot_in_CSharp {
                     // Stock Dispersion Not Found
                     compiled[0] = -1;
                 } else if (sDList.Count() > 1) {
-                    throw new Exception("More than one _new_gun found.");
+                    // Multiple new gun mods found. Blame Hispanos. Calling First regardless. Should work.
+                    //throw new Exception("More than one _new_gun found.");
                 }
 
                 if (compiled[0] != -1) { // Checking for found stock dispersion

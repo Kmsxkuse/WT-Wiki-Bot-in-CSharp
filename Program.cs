@@ -41,15 +41,21 @@ namespace WT_Wiki_Bot_in_CSharp
                 }
                 Console.WriteLine("Finished isolating Weapons folder.");
             }
+            // Creating Export Folder
+            if (!Directory.Exists(@"..\..\War-Thunder-Files\export"))
+            {
+                Console.WriteLine("Export folder not found.");
+                Directory.CreateDirectory(@"..\..\War-Thunder-Files\export");
+            }
             // Reading Weapons Folder
             //Parallel.ForEach(new DirectoryInfo(@".\War-Thunder-Files\weapons").GetFiles(), new ParallelOptions { MaxDegreeOfParallelism = 4 }, Blk.BlkUnpack);
             foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
             {
                 var parsedFile = Blk.BlkUnpack(fileInfo);
                 var infoList = RawParser.CompletedArr(parsedFile, fileInfo);
-                ExportMain.Main(infoList);
+                var completedExport = ExportMain.Main(infoList);
+                File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
             }
-            Console.ReadKey();
         }
 
         private static void RunFile(string fileName, string target)
