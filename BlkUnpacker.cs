@@ -170,16 +170,25 @@ namespace WT_Wiki_Bot_in_CSharp {
                 } else {
                     // For blockSize[0] == 0
                     var keyInfo = GetBlockInfo(fileReader);
-                    if (!blockSize.SequenceEqual(new ushort[] { 0, 0 })) { // Checking for empty group. BlockSize != [0, 0]
-                        var innerBlock = ParseData(subUnitKeys, fileReader, keyList, ((ushort[]) keyInfo[2]));
-                        var newInfo = new[] {
-                            keyInfo[0],
-                            keyInfo[1],
-                            innerBlock
-                        };
-                        curBlock = CheckBlock(new [] {FromIDtoString(newInfo, subUnitKeys, keyList)[0], innerBlock}, curBlock);
-                        blockSize[1]--;
-                    }
+                    var innerBlock = new Dictionary<string, object>();
+                    if (!((ushort[]) keyInfo[2]).SequenceEqual(new List<ushort> { 0, 0 })) { // Checking for empty group. BlockSize != [0, 0]
+                        if (fileReader.BaseStream.Position >= 15000)
+                        {
+                            Console.WriteLine("TEST");
+                            innerBlock = ParseData(subUnitKeys, fileReader, keyList, (ushort[]) keyInfo[2]);
+                        }
+                        else
+                        {
+                            innerBlock = ParseData(subUnitKeys, fileReader, keyList, (ushort[]) keyInfo[2]);
+                        }
+                    } 
+                    var newInfo = new[] {
+                        keyInfo[0],
+                        keyInfo[1],
+                        innerBlock
+                    };
+                    curBlock = CheckBlock(new [] {FromIDtoString(newInfo, subUnitKeys, keyList)[0], innerBlock}, curBlock);
+                    blockSize[1]--;
                 }
 
                 if (blockSize.SequenceEqual(new ushort[] { 0, 0 })) {
@@ -239,10 +248,10 @@ namespace WT_Wiki_Bot_in_CSharp {
                 case "str":
                     var s = subUnitKeys[(byte)blockInfo[2]];
                     try {
-                        return System.Text.Encoding.UTF8.GetString(s);
+                        return Encoding.UTF8.GetString(s);
                     } catch (Exception e) {
                         Console.WriteLine(e);
-                        throw;
+                        throw new Exception("Russian Encoding Shit.");
                     }
                 case "float":
                     return (decimal)blockInfo[2];

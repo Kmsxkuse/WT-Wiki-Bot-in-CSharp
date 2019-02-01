@@ -33,8 +33,12 @@ namespace WT_Wiki_Bot_in_CSharp
                 }
                 Console.WriteLine("Running Vromfs Depacker on Aces.");
                 RunFile(@"..\..\wt-tools\vromfs_unpacker.exe", @"..\..\War-Thunder-Files\aces.vromfs.bin");
+                // Moving weapons folder out.
                 Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\gamedata\weapons", @"..\..\War-Thunder-Files\weapons");
+                // Moving Flight Model folder out.
+                Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\gamedata\flightmodels\fm", @"..\..\War-Thunder-Files\fm");
                 Directory.Delete(@"..\..\War-Thunder-Files\aces.vromfs.bin_u", true);
+                // Deleting bombs and tank guns. Those I will do some other day.
                 foreach (var subDir in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetDirectories())
                 {
                     subDir.Delete(true);
@@ -46,28 +50,31 @@ namespace WT_Wiki_Bot_in_CSharp
             {
                 Console.WriteLine("Export folder not found.");
                 Directory.CreateDirectory(@"..\..\War-Thunder-Files\export");
+                Directory.CreateDirectory(@"..\..\War-Thunder-Files\export\weapons");
+                Directory.CreateDirectory(@"..\..\War-Thunder-Files\export\fm");
             }
             // Starting stopwatch
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             
             // Reading Weapons Folder
+            /*
             Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles(), fileInfo => 
             {
                 var parsedFile = Blk.BlkUnpack(fileInfo);
                 var infoList = RawParser.CompletedArr(parsedFile, fileInfo);
                 var completedExport = ExportMain.Main(infoList);
-                File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
+                File.WriteAllText($@"..\..\War-Thunder-Files\export\weapons\{infoList.FileName}.wiki", completedExport);
             });
-            //foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles())
-            /*
+            */
+            // Flight Models time. Both Horsepower Graph and FM Charts.
+            foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\fm").GetFiles())
             {
                 var parsedFile = Blk.BlkUnpack(fileInfo);
-                var infoList = RawParser.CompletedArr(parsedFile, fileInfo);
-                var completedExport = ExportMain.Main(infoList);
-                File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
+                var infoList = "test"; //RawParser.CompletedArr(parsedFile, fileInfo);
+                //var completedExport = ExportMain.Main(infoList);
+                //File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
             }
-            */
             
             stopWatch.Stop();
             Console.WriteLine("Time Spent: " + stopWatch.ElapsedMilliseconds + "ms");
