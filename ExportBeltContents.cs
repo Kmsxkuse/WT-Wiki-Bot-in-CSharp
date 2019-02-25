@@ -38,7 +38,7 @@ namespace WT_Wiki_Bot_in_CSharp {
             var exportFile = $@"<div class = ""mw-customtoggle-belts_{infoList.FileName}"" style=""text-align:center;width:auto;overflow:auto;border:solid purple;border-radius: 0.625rem;background:lavender"">
 <span style=""font-size:1.2rem;font-style:italic;font-weight:bold"">Belt Contents</span>
 </div>
-<div class=""mw-collapsible mw-collapsed"" id=""mw-customcollapsible-belts_{infoList.FileName}"" style=""width:99%;overflow:auto;"">
+<div class=""mw-collapsible"" id=""mw-customcollapsible-belts_{infoList.FileName}"" style=""width:99%;overflow:auto;"">
 <div class=""mw-collapsible-content"" style=""border:solid lightgray;background:white;margin-left:1%;padding:0 1%;overflow:auto"">
 {internalFile}
 </div>

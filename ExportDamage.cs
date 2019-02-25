@@ -9,7 +9,7 @@ namespace WT_Wiki_Bot_in_CSharp {
         public static string Main(InfoArray infoList) {
             string PhysicalTable(Dictionary<string, object> bullet) {
                 var wikiTable = $@"{{|class=""wikitable"" style=""width:75%;margin:0 auto 0.5rem""
-|+ style=""width:auto;font-size:1.2rem;margin:0.5rem 0"" | {NameCleaning((string) ((Dictionary<string, object>) bullet)["bulletType"])}
+|+ style=""width:auto;font-size:1.2rem;margin:0.5rem 0"" | {NameCleaning((string) bullet["bulletType"])}
 ! style=""width:25%"" | Mass
 ! style=""width:25%"" | Velocity
 ! style=""width:25%"" | Fire Multiplier
@@ -121,7 +121,7 @@ namespace WT_Wiki_Bot_in_CSharp {
             var exportFile = $@"<div class=""mw-customtoggle-damage_{infoList.FileName}"" style=""text-align:center;width:auto;overflow:auto;border:solid blue;border-radius:0.625rem;background:lightskyblue"">
 <span style=""font-size:1.2rem;font-style:italic;font-weight:bold"">Bullet Information</span>
 </div>
-<div class=""mw-collapsible mw-collapsed"" id=""mw-customcollapsible-damage_{infoList.FileName}"" style=""width:99%;"">
+<div class=""mw-collapsible"" id=""mw-customcollapsible-damage_{infoList.FileName}"" style=""width:99%;"">
 <div class=""mw-collapsible-content"" style=""border:solid lightgray;background:white;margin-left:1%;padding:0 1%;overflow:auto"">
 {internalFile}
 </div>

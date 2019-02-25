@@ -172,15 +172,7 @@ namespace WT_Wiki_Bot_in_CSharp {
                     var keyInfo = GetBlockInfo(fileReader);
                     var innerBlock = new Dictionary<string, object>();
                     if (!((ushort[]) keyInfo[2]).SequenceEqual(new List<ushort> { 0, 0 })) { // Checking for empty group. BlockSize != [0, 0]
-                        if (fileReader.BaseStream.Position >= 15000)
-                        {
-                            Console.WriteLine("TEST");
-                            innerBlock = ParseData(subUnitKeys, fileReader, keyList, (ushort[]) keyInfo[2]);
-                        }
-                        else
-                        {
-                            innerBlock = ParseData(subUnitKeys, fileReader, keyList, (ushort[]) keyInfo[2]);
-                        }
+                        innerBlock = ParseData(subUnitKeys, fileReader, keyList, (ushort[]) keyInfo[2]);
                     } 
                     var newInfo = new[] {
                         keyInfo[0],

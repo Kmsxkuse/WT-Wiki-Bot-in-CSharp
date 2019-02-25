@@ -32,7 +32,6 @@ namespace WT_Wiki_Bot_in_CSharp {
                 outputArr[5] = ExportBeltContents.Main(infoList);
             });
             return string.Join("", outputArr);
-            //Console.WriteLine("TEST");
         }
     }
 }

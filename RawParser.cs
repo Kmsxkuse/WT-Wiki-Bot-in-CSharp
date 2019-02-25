@@ -198,7 +198,7 @@ namespace WT_Wiki_Bot_in_CSharp {
 
             decimal CaliberCheck() {
                 if (rawBlk.ContainsKey("bullet")) {
-                    return Math.Round((decimal) ((Dictionary<string, object>) rawBlk["bullet"])["caliber"] * 1000);
+                    return Math.Round((decimal) ((Dictionary<string, object>) rawBlk["bullet"])["caliber"] * 1000, 1);
                 }
                 throw new Exception("CaliberCheck could not find bullet.");
             }

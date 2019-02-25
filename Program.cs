@@ -58,7 +58,6 @@ namespace WT_Wiki_Bot_in_CSharp
             stopWatch.Start();
             
             // Reading Weapons Folder
-            /*
             Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles(), fileInfo => 
             {
                 var parsedFile = Blk.BlkUnpack(fileInfo);
@@ -66,7 +65,6 @@ namespace WT_Wiki_Bot_in_CSharp
                 var completedExport = ExportMain.Main(infoList);
                 File.WriteAllText($@"..\..\War-Thunder-Files\export\weapons\{infoList.FileName}.wiki", completedExport);
             });
-            */
             // Flight Models time. Both Horsepower Graph and FM Charts.
             foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\fm").GetFiles())
             {
