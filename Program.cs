@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -8,6 +10,23 @@ namespace WT_Wiki_Bot_in_CSharp
 {
     internal static class Initialization
     {
+        private static readonly string[] RemovedGunFiles = 
+        {
+            "dummy_weapon.blk", "arcadedamagefunction.blk", "lt_proj.blk", "no_gun.blk", "fortest_mgun12mm.blk",
+            "railgun_for_pony.blk", "cannon_for_pony.blk", "shotgun_for_pony.blk"
+            
+        };
+        private static readonly HashSet<string> RemovedPlaneFiles = new HashSet<string>
+        {
+            "ah_1f.blk", "ah_1g.blk", "ah_1z.blk", "ah-64d.blk", "bo_105cb2.blk", "bo_105pah1.blk", "bo_105pah1_a1.blk",
+            "ba_65_k14_l.blk", "b_24d_luftwaffe.blk", "d4y1.blk", "d4y2.blk", "d4y3.blk", "fau-1.blk", "g8n2.blk",
+            "hp52_hampden_mk1_late.blk", "hp52_hampden_tbmk1.blk", "hp52_hampden_tbmk1_ussr_utk1.blk", "hudson_mk_v_gear_test.blk",
+            "ju-52.blk", "ki_32.blk", "maryland_mk1.blk", "mi-35.blk", "mi_24a.blk", "mi_24d.blk", "mi_24p.blk", "mi_24p_german.blk",
+            "mi_24v.blk", "mi_35m.blk", "mi_4av.blk", "n1k1_kyuofu.blk", "sa_313b.blk", "sb2c_5.blk", "sb2c_5_france.blk",
+            "su-6_am42_23.blk", "uh_1b.blk", "uh_1c.blk", "uh_1c_xm_30.blk", "uh_1d.blk", "dummy_plane.blk", "c-47.blk", "lagg-3-1.blk",
+            "lagg-3-29.blk", "lagg_gu-37.blk", "li-2.blk", "vb_10_02.blk", "vb_10c1.blk"
+        };
+        
         private static void Main(string[] args)
         {
             // Checking for Pre-initialized Weapons Folder.
@@ -36,7 +55,7 @@ namespace WT_Wiki_Bot_in_CSharp
                 // Moving weapons folder out.
                 Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\gamedata\weapons", @"..\..\War-Thunder-Files\weapons");
                 // Moving Flight Model folder out.
-                Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\gamedata\flightmodels\fm", @"..\..\War-Thunder-Files\fm");
+                Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\gamedata\flightmodels", @"..\..\War-Thunder-Files\flightmodels");
                 Directory.Delete(@"..\..\War-Thunder-Files\aces.vromfs.bin_u", true);
                 // Deleting bombs and tank guns. Those I will do some other day.
                 foreach (var subDir in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetDirectories())
@@ -51,7 +70,7 @@ namespace WT_Wiki_Bot_in_CSharp
                 Console.WriteLine("Export folder not found.");
                 Directory.CreateDirectory(@"..\..\War-Thunder-Files\export");
                 Directory.CreateDirectory(@"..\..\War-Thunder-Files\export\weapons");
-                Directory.CreateDirectory(@"..\..\War-Thunder-Files\export\fm");
+                Directory.CreateDirectory(@"..\..\War-Thunder-Files\export\flightmodels");
             }
             // Starting stopwatch
             var stopWatch = new Stopwatch();
@@ -60,20 +79,39 @@ namespace WT_Wiki_Bot_in_CSharp
             // Reading Weapons Folder
             Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetFiles(), fileInfo => 
             {
+                // Skipping trash files
+                if (RemovedGunFiles.Contains(fileInfo.Name)) return;
                 var parsedFile = Blk.BlkUnpack(fileInfo);
-                var infoList = RawParser.CompletedArr(parsedFile, fileInfo);
-                var completedExport = ExportMain.Main(infoList);
-                File.WriteAllText($@"..\..\War-Thunder-Files\export\weapons\{infoList.FileName}.wiki", completedExport);
+                var completedExport = ExportMain.Main(RawParser.CompletedArr(parsedFile, fileInfo));
+                File.WriteAllText($@"..\..\War-Thunder-Files\export\weapons\{Path.GetFileNameWithoutExtension(fileInfo.Name)}.wiki", completedExport);
             });
-            // Flight Models time. Both Horsepower Graph and FM Charts.
-            foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\fm").GetFiles())
-            {
-                var parsedFile = Blk.BlkUnpack(fileInfo);
-                var infoList = "test"; //RawParser.CompletedArr(parsedFile, fileInfo);
-                //var completedExport = ExportMain.Main(infoList);
-                //File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
-            }
+            // Flight Models time. Creating Lookup Dictionary. Holy LINQ.
+            var fmLookup = new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles()
+                .Where(fileInfo => !RemovedPlaneFiles.Contains(fileInfo.Name))
+                .ToDictionary<FileInfo, string, RawFmParser>(fileInfo => fileInfo.Name, fileInfo => null);
             
+            // First Layer
+            Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles(),
+                new ParallelOptions {MaxDegreeOfParallelism = 1}, fileInfo =>
+                {
+                    // Skipping Errored files
+                    if (RemovedPlaneFiles.Contains(fileInfo.Name)) return;
+                    var parsedFile = Blk.BlkUnpack(fileInfo);
+                    fmLookup[fileInfo.Name] = new RawFmParser(parsedFile, fileInfo);
+                    //var completedExport = ExportMain.Main(infoList);
+                    //File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
+                });
+
+            foreach (var plane in fmLookup.Values)
+            {
+                // Skipping Errored files
+                if (RemovedPlaneFiles.Contains(plane.FmFileName)) continue;
+                var fileInfo = new FileInfo(@"..\..\War-Thunder-Files\flightmodels\fm\" + plane.FmFileName);
+                var parsedFmFile = Blk.BlkUnpack(fileInfo);
+                var accessedPlane = fmLookup[plane.FileName + ".blk"];
+                accessedPlane.AddHorsePower(parsedFmFile);
+            }
+            Console.WriteLine("Test1");
             stopWatch.Stop();
             Console.WriteLine("Time Spent: " + stopWatch.ElapsedMilliseconds + "ms");
         }

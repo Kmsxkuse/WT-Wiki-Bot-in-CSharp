@@ -56,6 +56,7 @@
     <Compile Include="ExportArmorPen.cs" />
     <Compile Include="ExportBasic.cs" />
     <Compile Include="ExportDamage.cs" />
+    <Compile Include="ExportFmGraphs.cs" />
     <Compile Include="ExportMain.cs" />
     <Compile Include="ExportBeltContents.cs" />
     <Compile Include="ExportStart.cs" />

@@ -16,7 +16,7 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// <summary>
         /// Unique Bullet IDs
         /// </summary>
-        public List<decimal> UniqueIDs {get; set;}
+        public List<decimal> UniqueIDs {get; }
         
         /// <summary>
         /// Name of Spaded Bullet Belts
@@ -93,7 +93,7 @@ namespace WT_Wiki_Bot_in_CSharp {
         }
         
         /// <summary>
-        /// Raw File Name
+        /// File name without extension
         /// </summary>
         public string FileName {get; private set;}
         /// <summary>
@@ -120,7 +120,7 @@ namespace WT_Wiki_Bot_in_CSharp {
         /// </summary>
         /// <param name="spadedBelts"></param>
         /// <param name="stockBelts"></param>
-        internal InfoArray(IReadOnlyCollection<KeyValuePair<string, object>> spadedBelts, IEnumerable<KeyValuePair<string, object>> stockBelts) {
+        public InfoArray(IReadOnlyCollection<KeyValuePair<string, object>> spadedBelts, IEnumerable<KeyValuePair<string, object>> stockBelts) {
             // Spaded Belt Names
             SpadedNames = (from beltNames in spadedBelts select beltNames.Key).Distinct().ToList();
             
@@ -259,7 +259,7 @@ namespace WT_Wiki_Bot_in_CSharp {
             cleaning = Regex.Replace(cleaning, @"(\b[a-z](?!\b))", Capitalizing);
             
             return new List<string> {
-                fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf('.')),
+                Path.GetFileNameWithoutExtension(fileInfo.Name),
                 cleaning,
                 fileInfo.LastWriteTimeUtc.ToLongDateString()
             };

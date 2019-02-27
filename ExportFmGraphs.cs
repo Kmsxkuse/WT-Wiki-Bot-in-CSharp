@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 namespace WT_Wiki_Bot_in_CSharp {
-    internal static class ExportArmorPen {
+    internal static class ExportFmGraphs {
         private static readonly string[] ColourValues = { 
             "FF0000", "00FF00", "0000FF", "FFFF00", "FF00FF", "00FFFF", "000000", 
             "800000", "008000", "000080", "808000", "800080", "008080", "808080", 
