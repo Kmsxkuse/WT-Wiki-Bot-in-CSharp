@@ -91,7 +91,6 @@ namespace WT_Wiki_Bot_in_CSharp
                 .Where(fileInfo => !RemovedPlaneFiles.Contains(fileInfo.Name))
                 .ToDictionary<FileInfo, string, RawFmParser>(fileInfo => fileInfo.Name, fileInfo => null);
             
-            // First Layer
             Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles(), 
                 new ParallelOptions {MaxDegreeOfParallelism = 4},fileInfo =>
                 {
@@ -102,21 +101,31 @@ namespace WT_Wiki_Bot_in_CSharp
                     //var completedExport = ExportMain.Main(infoList);
                     //File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
                 });
-            // Horsepower Layer
-            foreach (var plane in fmLookup.Values)
+            //foreach (var plane in fmLookup.Values)
+            Parallel.ForEach(fmLookup.Values, plane =>
             {
                 // Skipping Errored files
-                if (RemovedPlaneFiles.Contains(plane.FmFileName)) continue;
+                if (RemovedPlaneFiles.Contains(plane.FmFileName)) return;
                 var fileInfo = new FileInfo(@"..\..\War-Thunder-Files\flightmodels\fm\" + plane.FmFileName);
-                var parsedFmFile = Blk.BlkUnpack(fileInfo);
+                // Generating Temporary Copy
+                var tempFileName = Path.GetTempPath() + plane.FileName + ".temp";
+                fileInfo.CopyTo(tempFileName);
+                var tempFileInfo = new FileInfo(tempFileName);
                 var accessedPlane = fmLookup[plane.FileName + ".blk"];
-                accessedPlane.AddHorsePower(parsedFmFile);
+                // Reading Copy
+                accessedPlane.AddHorsePower(Blk.BlkUnpack(tempFileInfo));
+                // Deleting Copy
+                tempFileInfo.Delete();
                 var tables = new StringBuilder();
                 tables.AppendLine(ExportFmGraphs.SpeedChart(accessedPlane));
                 tables.AppendLine(ExportFmGraphs.ClimbRateChart(accessedPlane));
-                tables.AppendLine(accessedPlane.ClimbTimeWikiMil.Count != 0 ? ExportFmGraphs.ClimbTimeChart(accessedPlane) : "");
-                File.WriteAllText($@"..\..\War-Thunder-Files\export\flightmodels\{plane.FileName}.wiki", tables.ToString());
-            }
+                tables.AppendLine(accessedPlane.ClimbTimeWikiMil.Count != 0
+                    ? ExportFmGraphs.ClimbTimeChart(accessedPlane)
+                    : "");
+                tables.AppendLine(ExportFmGraphs.HorsePowerChart(accessedPlane));
+                File.WriteAllText($@"..\..\War-Thunder-Files\export\flightmodels\{plane.FileName}.wiki",
+                    tables.ToString());
+            });
             stopWatch.Stop();
             Console.WriteLine("Time Spent: " + stopWatch.ElapsedMilliseconds + "ms");
         }
