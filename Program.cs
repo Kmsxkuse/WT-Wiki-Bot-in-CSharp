@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -91,8 +92,8 @@ namespace WT_Wiki_Bot_in_CSharp
                 .ToDictionary<FileInfo, string, RawFmParser>(fileInfo => fileInfo.Name, fileInfo => null);
             
             // First Layer
-            Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles(),
-                new ParallelOptions {MaxDegreeOfParallelism = 1}, fileInfo =>
+            Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles(), 
+                new ParallelOptions {MaxDegreeOfParallelism = 4},fileInfo =>
                 {
                     // Skipping Errored files
                     if (RemovedPlaneFiles.Contains(fileInfo.Name)) return;
@@ -101,7 +102,7 @@ namespace WT_Wiki_Bot_in_CSharp
                     //var completedExport = ExportMain.Main(infoList);
                     //File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
                 });
-
+            // Horsepower Layer
             foreach (var plane in fmLookup.Values)
             {
                 // Skipping Errored files
@@ -110,8 +111,12 @@ namespace WT_Wiki_Bot_in_CSharp
                 var parsedFmFile = Blk.BlkUnpack(fileInfo);
                 var accessedPlane = fmLookup[plane.FileName + ".blk"];
                 accessedPlane.AddHorsePower(parsedFmFile);
+                var tables = new StringBuilder();
+                tables.AppendLine(ExportFmGraphs.SpeedChart(accessedPlane));
+                tables.AppendLine(ExportFmGraphs.ClimbRateChart(accessedPlane));
+                tables.AppendLine(accessedPlane.ClimbTimeWikiMil.Count != 0 ? ExportFmGraphs.ClimbTimeChart(accessedPlane) : "");
+                File.WriteAllText($@"..\..\War-Thunder-Files\export\flightmodels\{plane.FileName}.wiki", tables.ToString());
             }
-            Console.WriteLine("Test1");
             stopWatch.Stop();
             Console.WriteLine("Time Spent: " + stopWatch.ElapsedMilliseconds + "ms");
         }

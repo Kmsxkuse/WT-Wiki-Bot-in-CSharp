@@ -46,7 +46,7 @@ namespace WT_Wiki_Bot_in_CSharp {
                     maxPen = ((float[]) coordinate)[0];
                 });
             });
-            maxPen = (float)(Math.Ceiling(maxPen / ((float) maxLines / 2)) * ((float) maxLines / 2));
+            maxPen = (float) Math.Ceiling(maxPen);
             
             var chartUnits = new StringBuilder();
             for (var lineNum = maxLines; lineNum > 0; lineNum--) {

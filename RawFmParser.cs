@@ -7,7 +7,7 @@ namespace WT_Wiki_Bot_in_CSharp
 {
     internal class RawFmParser
     {
-        public List<decimal> MaxSpeedAltSpec { get; }
+        //public List<decimal> MaxSpeedAltSpec { get; }
         public List<float[]> MaxSpeedWikiWep { get; }
         public List<float[]> MaxSpeedWikiMil { get; }
         public List<float[]> ClimbRateWikiWep { get; }
@@ -73,8 +73,7 @@ namespace WT_Wiki_Bot_in_CSharp
             afterBoost = (decimal) main["AfterburnerBoost"];
             for (var stage = 0; stage < numSteps; stage++)
             {
-                var ihpMulti = (decimal) stage;
-                if (stage == 0) ihpMulti = 1 / 0.8m;
+                var ihpMulti = stage == 0 ? 1 / 0.8m : stage;
                 var altStage = compressor.ContainsKey($"Altitude{stage}") 
                     ? new[] {(decimal) compressor[$"Altitude{stage}"], (decimal) compressor[$"Power{stage}"]} 
                     : new []{-1m, -1m};
