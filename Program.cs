@@ -25,11 +25,13 @@ namespace WT_Wiki_Bot_in_CSharp
             "ju-52.blk", "ki_32.blk", "maryland_mk1.blk", "mi-35.blk", "mi_24a.blk", "mi_24d.blk", "mi_24p.blk", "mi_24p_german.blk",
             "mi_24v.blk", "mi_35m.blk", "mi_4av.blk", "n1k1_kyuofu.blk", "sa_313b.blk", "sb2c_5.blk", "sb2c_5_france.blk",
             "su-6_am42_23.blk", "uh_1b.blk", "uh_1c.blk", "uh_1c_xm_30.blk", "uh_1d.blk", "dummy_plane.blk", "c-47.blk", "lagg-3-1.blk",
-            "lagg-3-29.blk", "lagg_gu-37.blk", "li-2.blk", "vb_10_02.blk", "vb_10c1.blk"
+            "lagg-3-29.blk", "lagg_gu-37.blk", "li-2.blk", "vb_10_02.blk", "vb_10c1.blk", "h_34_france.blk", "iar_316b.blk", "sa_313b_france.blk", 
+            "sa_316b.blk", "sa_341f.blk", "bf-109z.blk", "sa_342m.blk", "ufo.blk", "ucu_blue_squadron"
         };
         
         private static void Main(string[] args)
         {
+            // Terribly optimized piece of trash. Will rewrite... someday.
             // Checking for Pre-initialized Weapons Folder.
             if (!Directory.Exists(@"..\..\War-Thunder-Files\weapons"))
             {
@@ -57,6 +59,9 @@ namespace WT_Wiki_Bot_in_CSharp
                 Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\gamedata\weapons", @"..\..\War-Thunder-Files\weapons");
                 // Moving Flight Model folder out.
                 Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\gamedata\flightmodels", @"..\..\War-Thunder-Files\flightmodels");
+                // Moving config folder out.
+                Directory.Move(@"..\..\War-Thunder-Files\aces.vromfs.bin_u\config", @"..\..\War-Thunder-Files\config");
+                // Deleting unused files
                 Directory.Delete(@"..\..\War-Thunder-Files\aces.vromfs.bin_u", true);
                 // Deleting bombs and tank guns. Those I will do some other day.
                 foreach (var subDir in new DirectoryInfo(@"..\..\War-Thunder-Files\weapons").GetDirectories())
@@ -72,6 +77,7 @@ namespace WT_Wiki_Bot_in_CSharp
                 Directory.CreateDirectory(@"..\..\War-Thunder-Files\export");
                 Directory.CreateDirectory(@"..\..\War-Thunder-Files\export\weapons");
                 Directory.CreateDirectory(@"..\..\War-Thunder-Files\export\flightmodels");
+                Directory.CreateDirectory(@"..\..\War-Thunder-Files\export\flightmodels\fm");
             }
             // Starting stopwatch
             var stopWatch = new Stopwatch();
@@ -86,34 +92,42 @@ namespace WT_Wiki_Bot_in_CSharp
                 var completedExport = ExportMain.Main(RawParser.CompletedArr(parsedFile, fileInfo));
                 File.WriteAllText($@"..\..\War-Thunder-Files\export\weapons\{Path.GetFileNameWithoutExtension(fileInfo.Name)}.wiki", completedExport);
             });
+            
             // Flight Models time. Creating Lookup Dictionary. Holy LINQ.
             var fmLookup = new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles()
                 .Where(fileInfo => !RemovedPlaneFiles.Contains(fileInfo.Name))
                 .ToDictionary<FileInfo, string, RawFmParser>(fileInfo => fileInfo.Name, fileInfo => null);
             
-            Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles(), 
-                new ParallelOptions {MaxDegreeOfParallelism = 4},fileInfo =>
-                {
-                    // Skipping Errored files
-                    if (RemovedPlaneFiles.Contains(fileInfo.Name)) return;
-                    var parsedFile = Blk.BlkUnpack(fileInfo);
-                    fmLookup[fileInfo.Name] = new RawFmParser(parsedFile, fileInfo);
-                    //var completedExport = ExportMain.Main(infoList);
-                    //File.WriteAllText($@"..\..\War-Thunder-Files\export\{infoList.FileName}.wiki", completedExport);
-                });
-            //foreach (var plane in fmLookup.Values)
-            Parallel.ForEach(fmLookup.Values, plane =>
+            // Reading Arcade modifiers for FM Charts
+            // gameparams.blk -> difficulty_settings -> noArcadeBoost -> off
+            var arcadeModifiers = (Dictionary<string, object>) ((Dictionary<string, object>) 
+                ((Dictionary<string, object>) Blk.BlkUnpack(new FileInfo(@"..\..\War-Thunder-Files\config\gameparams.blk"))
+                    ["difficulty_settings"]) ["noArcadeBoost"])["off"];
+            
+            //Parallel.ForEach(new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles(), fileInfo =>
+            foreach (var fileInfo in new DirectoryInfo(@"..\..\War-Thunder-Files\flightmodels").GetFiles())
             {
                 // Skipping Errored files
-                if (RemovedPlaneFiles.Contains(plane.FmFileName)) return;
+                if (RemovedPlaneFiles.Contains(fileInfo.Name)) continue;
+                var parsedFile = Blk.BlkUnpack(fileInfo);
+
+                // Fleshing dictionary
+                fmLookup[fileInfo.Name] = new RawFmParser(parsedFile, fileInfo);
+            }//);
+            //Parallel.ForEach(fmLookup.Values, plane => 
+            foreach (var plane in fmLookup.Values)
+            {
+                // Skipping Errored files
+                if (RemovedPlaneFiles.Contains(plane.FmFileName)) continue;
+                // Horsepower graphs
                 var fileInfo = new FileInfo(@"..\..\War-Thunder-Files\flightmodels\fm\" + plane.FmFileName);
                 // Generating Temporary Copy
                 var tempFileName = Path.GetTempPath() + plane.FileName + ".temp";
-                fileInfo.CopyTo(tempFileName);
+                fileInfo.CopyTo(tempFileName, true);
                 var tempFileInfo = new FileInfo(tempFileName);
                 var accessedPlane = fmLookup[plane.FileName + ".blk"];
                 // Reading Copy
-                accessedPlane.AddHorsePower(Blk.BlkUnpack(tempFileInfo));
+                accessedPlane.ReadFmDataFile(Blk.BlkUnpack(tempFileInfo));
                 // Deleting Copy
                 tempFileInfo.Delete();
                 var tables = new StringBuilder();
@@ -125,7 +139,11 @@ namespace WT_Wiki_Bot_in_CSharp
                 tables.AppendLine(ExportFmGraphs.HorsePowerChart(accessedPlane));
                 File.WriteAllText($@"..\..\War-Thunder-Files\export\flightmodels\{plane.FileName}.wiki",
                     tables.ToString());
-            });
+
+                // FM charts
+                File.WriteAllText($@"..\..\War-Thunder-Files\export\flightmodels\fm\{plane.FileName}.wiki",
+                    ExportFmCharts.Main(accessedPlane, arcadeModifiers));
+            }//);
             stopWatch.Stop();
             Console.WriteLine("Time Spent: " + stopWatch.ElapsedMilliseconds + "ms");
         }

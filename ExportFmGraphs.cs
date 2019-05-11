@@ -111,10 +111,11 @@ namespace WT_Wiki_Bot_in_CSharp
             var intSize = Math.Round(tableSize * 17 / 20, 2);
             const int maxLines = 11; // - 1 for actual number of lines
             const string chartEnd = "</div>";
+            var legendAlign = inputInfo.ChartType.Equals("ClimbTime") ? 2.5 : 75;
 
             var chartStart =
                 $@"<div style=""position:relative;width:{tableSize}rem;height:{tableSize}rem;background:#f0f0f0;border:solid;margin:1rem auto"">
-<div style=""position:absolute;left:{Math.Round(tableSize / 10, 2)}rem;top:{Math.Round(tableSize / 20, 2)}rem;width:{intSize}rem;height:{intSize}rem;background:white;border:solid;"">";
+<div style=""position:absolute;left:{Math.Round(tableSize / 10, 2)}rem;top:{Math.Round(tableSize / 20, 2)}rem;width:{intSize}rem;height:{intSize}rem;background:white;border:solid;overflow:hidden"">";
 
             var chartLines = new StringBuilder();
             for (var lineNum = 1; lineNum < maxLines; lineNum++)
@@ -127,10 +128,13 @@ namespace WT_Wiki_Bot_in_CSharp
                     $@"<div style=""position:absolute;height:{intSize}rem;left:{Math.Round(intSize / maxLines * lineNum, 2)}rem;border-right:dashed 2px lightgray;""></div>");
             }
 
+            // Max code alt
             float maxAltMil = inputInfo.RawDataMil[inputInfo.RawDataMil.Count - 1][0] / 1000f,
                 maxAltWep = inputInfo.RawDataWep.Count != 0 ? inputInfo.RawDataWep[inputInfo.RawDataWep.Count - 1][0] / 1000f : 0;
             var maxAlt = Math.Ceiling(maxAltMil > maxAltWep ? maxAltMil : maxAltWep);
             maxAlt = maxAlt > 10 ? maxAlt : 10;
+            // Max 10 Alt
+            //const double maxAlt = 10;
 
             var chartUnits = new StringBuilder();
             for (var lineNum = maxLines; lineNum > 0; lineNum--)
@@ -182,7 +186,7 @@ namespace WT_Wiki_Bot_in_CSharp
             }
             // Mil Legend
             penLegend.Append(
-                $@"<div style=""position:relative;padding:0.2rem;border:solid #{ColourValues[0]};width:20%;top:1%;margin:0 0 0 75%;background:white;text-align:center"">100%</div>");
+                $@"<div style=""position:relative;padding:0.2rem;border:solid #{ColourValues[0]};width:20%;top:1%;margin:0 0 0 {legendAlign}%;background:white;text-align:center"">100%</div>");
 
             if (inputInfo.RawDataWep.Count != 0)
             {
@@ -212,7 +216,7 @@ namespace WT_Wiki_Bot_in_CSharp
                 }
                 // WEP Legend
                 penLegend.Append(
-                    $@"<div style=""position:relative;padding:0.2rem;border:dashed #{ColourValues[0]};width:20%;top:1%;margin:0 0 0 75%;background:white;text-align:center"">WEP</div>");
+                    $@"<div style=""position:relative;padding:0.2rem;border:dashed #{ColourValues[0]};width:20%;top:1%;margin:0 0 0 {legendAlign}%;background:white;text-align:center"">WEP</div>");
             }
             
             // First is X Axis, second is Y Axis.
@@ -220,9 +224,10 @@ namespace WT_Wiki_Bot_in_CSharp
 <div style=""position:absolute;width:100%;top:{tableSize - 1.5M}rem"" align=""center"">{inputInfo.XAxis}</div>
 <div style=""transform:rotate(90deg);position:relative;left:-{tableSize - 1.5M}rem;height:100%;"" align=""center"">{inputInfo.YAxis}</div></b>";
 
+            // TODO: Shift this off to a separate function.
             // To prevent people from saying my poor chart is bugged.
             const string chartWarning =
-                @"<div style=""position:relative;text-align:center;font-weight:bold;top:0.5rem"">Colors indicated in the legend that do not appear in the graph may be hidden behind another line.<br />Numbers along Y Axis are not precise. They have been rounded to the nearest integer.</div>";
+                @"<div style=""position:relative;text-align:center;font-weight:bold;top:0.5rem"">Colors indicated in the legend that do not appear in the graph may be hidden behind another line.</div>";
 
             var exportFile =
                 $@"<div class=""mw-customtoggle-performance_{inputInfo.ChartType}"" style=""text-align:center;width:auto;overflow:auto;border:solid orange;border-radius:0.625rem;background:mistyrose"">
@@ -289,7 +294,7 @@ namespace WT_Wiki_Bot_in_CSharp
 
             var chartStart =
                 $@"<div style=""position:relative;width:{tableSize}rem;height:{tableSize}rem;background:#f0f0f0;border:solid;margin:1rem auto"">
-<div style=""position:absolute;left:{Math.Round(tableSize / 10, 2)}rem;top:{Math.Round(tableSize / 20, 2)}rem;width:{intSize}rem;height:{intSize}rem;background:white;border:solid;"">";
+<div style=""position:absolute;left:{Math.Round(tableSize / 10, 2)}rem;top:{Math.Round(tableSize / 20, 2)}rem;width:{intSize}rem;height:{intSize}rem;background:white;border:solid;;overflow:hidden"">";
 
             var chartLines = new StringBuilder();
             for (var lineNum = 1; lineNum < maxLines; lineNum++)
@@ -308,7 +313,12 @@ namespace WT_Wiki_Bot_in_CSharp
                 var maxGerAlt = gear[gear.Count - 1][0] / 1000;
                 maxAlt = maxAlt < maxGerAlt ? maxGerAlt : maxAlt;
             }
-            maxAlt = Math.Ceiling(maxAlt > 10 ? maxAlt : 10);
+            // Max Code Alt
+            //maxAlt = Math.Ceiling(maxAlt > 10 ? maxAlt : 10);
+            // Max 10 Alt
+            maxAlt = 10m;
+            
+            // TODO: Add Maximum Altitude Horsepower Point
 
             decimal maxHp = 0;
             foreach (var gear in inputHpInfo.Stages)
